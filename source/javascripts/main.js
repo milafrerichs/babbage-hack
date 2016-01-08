@@ -1,12 +1,28 @@
 var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui.bootstrap', 'ui.select']);
 
 demo.controller('DemoCtrl', function ($scope) {
+  $scope.einahmeAusgabe = 'einnahmeausgabe.einnahmeausgabe:Einnahme';
   $scope.state = {
-    tile: ['funktionbezeichnung.funktionbezeichnung'],
-    cut: [ 'einnahmeausgabe.einnahmeausgabe:Einnahme' ]
+    tile: ['hauptgruppe.hauptgruppenbezeichnung'],
+    cut: [ $scope.einahmeAusgabe],
+    hierarchies: {
+      'einzelplanbezeichnung.einzelplanbezeichnung': {
+        label: 'Einzelplan',
+        levels: ['kapitel.kapitelbezeichnung', 'zweckbestimmung.zweckbestimmung']
+      },
+      'hauptgruppe.hauptgruppenbezeichnung': {
+        label: 'Hauptgruppe',
+        levels: [ 'obergruppe.obergruppenbezeichnung', 'gruppenbezeichnung.gruppenbezeichnung']
+      },
+      'hauptfunktion.hauptfunktionbezeichnung': {
+        label: 'Hauptfunktion',
+        levels: ['oberfunktion.oberfunktionbezeichnung', 'funktionbezeichnung.funktionbezeichnung']
+      }
+    }
   }
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
   $scope.changeEinahmenAusgaben = function(attr) {
+    $scope.einahmeAusgabe = attr.id;
     $scope.state.cut = [attr.id];
   }
 });
