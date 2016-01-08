@@ -51,8 +51,8 @@ demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
       }
       scope.setTile = function(name) {
         var state = babbageCtrl.getState();
-        scope.state.cut = cutsWithOutLevels(removeLevels(name));
-        scope.state.tile = [name];
+        state.cut = cutsWithOutLevels(removeLevels(name));
+        state.tile = [name];
         babbageCtrl.setState(state);
       }
       var getLevels = function(hierarchies) {
