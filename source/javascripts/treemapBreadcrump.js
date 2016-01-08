@@ -2,16 +2,13 @@ demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
   return {
     restrict: 'EA',
     require: '^babbage',
-    scope: {
-      state: '=',
-      reset: '='
-    },
+    scope: { },
     template: '<div><ul><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ul></div>',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {
         dimensions = model.dimensions;
-        scope.levels = getLevels(scope.state.hierarchies);
+        scope.levels = getLevels(state.hierarchies);
       });
       var removeLevels = function(level) {
         var levelLength = scope.levels.length;
@@ -22,11 +19,12 @@ demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
         }
       }
       var cutsWithOutLevels = function(levels) {
-        var cutLength = scope.state.cut.length;
+        var state = babbageCtrl.getState();
+        var cutLength = state.cut.length;
         var levelLength = levels.length;
         var newCuts = [];
         for(var i=0;i<cutLength;i++) {
-          var cut = scope.state.cut[i];
+          var cut = state.cut[i];
           var cutElements = cut.split(":");
           var include = true;
           for(var j=0;j<levelLength;j++) {
@@ -48,13 +46,17 @@ demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
         }
       }
       scope.isActive = function(level) {
-        return level == scope.state.tile[0];
+        var state = babbageCtrl.getState();
+        return level == state.tile[0];
       }
       scope.setTile = function(name) {
+        var state = babbageCtrl.getState();
         scope.state.cut = cutsWithOutLevels(removeLevels(name));
         scope.state.tile = [name];
+        babbageCtrl.setState(state);
       }
       var getLevels = function(hierarchies) {
+        var state = babbageCtrl.getState();
         for(var name in hierarchies) {
           var hierarchy = hierarchies[name];
           var levels = hierarchy.levels;
@@ -62,21 +64,15 @@ demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
           var prevs = [name];
           for(var i=0;i<levelLength;i++) {
             prevs.push(levels[i]);
-            if(scope.state.tile[0] == levels[i]) {
+            if(state.tile[0] == levels[i]) {
               return prevs;
             }
           }
         }
-        return [scope.state.tile[0]];
+        return [state.tile[0]];
       };
-      var resetTiles = function() {
-        scope.tiles = [];
-      }
-
-      scope.levels = getLevels(scope.state.hierarchies);
-      scope.$watch('reset', function(reset) {
-        if(reset) { resetTiles();scope.reset = false; }
-      });
+      var state = babbageCtrl.getState();
+      scope.levels = getLevels(state.hierarchies);
     }
   }
 }]);
