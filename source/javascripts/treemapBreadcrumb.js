@@ -1,9 +1,10 @@
-demo.directive('treemapBreadcrump', ['$rootScope', function($rootScope) {
+demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
   return {
     restrict: 'EA',
+    replace: true,
     require: '^babbage',
     scope: { },
-    template: '<div><ul><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ul></div>',
+    template: '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ol>',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {
