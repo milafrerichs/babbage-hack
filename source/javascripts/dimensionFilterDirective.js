@@ -8,7 +8,7 @@ demo.directive('dimensionFilter', ['$rootScope', function($rootScope) {
       dimension: '@',
       defaultCut: '='
     },
-    template: '<div class="filter"></div>',
+    template: '<div class="babbage-dimension-filter"></div>',
     link: function(scope, element, attrs, babbageCtrl, transclude) {
       transclude(scope, function(clone, scope) {
         element.append(clone);

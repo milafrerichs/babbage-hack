@@ -4,9 +4,11 @@ title: Haushalt Rheinland-Pfalz
 <div ng-controller="DemoCtrl">
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
   <treemap-breadcrump reset='reset' state='state'></treemap-breadcrump>
-  <dimension-filter dimension='hauptgruppe.hauptgruppenbezeichnung' default-cut='einahmeAusgabe'><a href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
-  <dimension-filter dimension='einzelplanbezeichnung.einzelplanbezeichnung' default-cut='einahmeAusgabe'><a href='' ng-click='update()'>nach Plan</a></dimension-filter>
-  <dimension-filter dimension='hauptfunktion.hauptfunktionbezeichnung' default-cut='einahmeAusgabe'><a href='' ng-click='update()'>nach Funktion</a></dimension-filter>
+  <div class='dimension-filters'>
+    <dimension-filter dimension='hauptgruppe.hauptgruppenbezeichnung' default-cut='einahmeAusgabe'><a class='btn btn-default' href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
+    <dimension-filter dimension='einzelplanbezeichnung.einzelplanbezeichnung' default-cut='einahmeAusgabe'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
+    <dimension-filter dimension='hauptfunktion.hauptfunktionbezeichnung' default-cut='einahmeAusgabe'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
+  </div>
   <div class="btn-group" dropdown ng-show="einahmenausgaben.length">
     &mdash;
     <a dropdown-toggle class="ng-link">{{state.cut[0]}}</a>
