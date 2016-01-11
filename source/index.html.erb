@@ -3,7 +3,7 @@ title: Haushalt Rheinland-Pfalz
 ---
 <div ng-controller="DemoCtrl">
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
-  <treemap-breadcrump reset='reset' state='state'></treemap-breadcrump>
+  <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
   <div class='dimension-filters'>
     <dimension-filter dimension='hauptgruppe.hauptgruppenbezeichnung' default-cut='einahmeAusgabe'><a class='btn btn-default' href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
     <dimension-filter dimension='einzelplanbezeichnung.einzelplanbezeichnung' default-cut='einahmeAusgabe'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
