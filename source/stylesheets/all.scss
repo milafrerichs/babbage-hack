@@ -5,6 +5,9 @@
 
 @charset "utf-8";
 
+@import "mixins";
+@import "filter";
+
 body {
   background: #d4d4d4 url("../images/background.png");
   text-align: center;
@@ -58,3 +61,4 @@ h1 {
     -webkit-transform: scale(1);
   }
 }
+
