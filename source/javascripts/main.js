@@ -25,4 +25,9 @@ demo.controller('DemoCtrl', function ($scope) {
     $scope.einahmeAusgabe = attr.id;
     $scope.state.cut = [attr.id];
   }
+  $scope.setTile = function(tile) {
+    $scope.reset = true;
+    $scope.state.tile = [tile];
+    $scope.state.cut = [ $scope.einnahmenAusgaben ];
+  }
 });
