@@ -1,11 +1,11 @@
 var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui.bootstrap', 'ui.select']);
 
 demo.controller('DemoCtrl', function ($scope) {
-  $scope.einahmeAusgabe = 'einnahmeausgabe.einnahmeausgabe:Einnahme';
-  $scope.defaultCut = [$scope.einahmeAusgabe];
+  $scope.einahmeAusgabe = 'Einnahmen';
+  $scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Einnahme'];
   $scope.state = {
     tile: ['hauptgruppe.hauptgruppenbezeichnung'],
-    cut: [ $scope.einahmeAusgabe],
+    cut: $scope.defaultCut,
     hierarchies: {
       'einzelplanbezeichnung.einzelplanbezeichnung': {
         label: 'Einzelplan',
@@ -23,9 +23,7 @@ demo.controller('DemoCtrl', function ($scope) {
   }
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
   $scope.changeEinahmenAusgaben = function(attr) {
-    $scope.einahmeAusgabe = attr.id;
-    $scope.state.cut = [attr.id];
-    $scope.defaultCut = [$scope.einahmeAusgabe];
+    $scope.defaultCut = [attr.id];
   }
   $scope.setTile = function(tile) {
     $scope.reset = true;
