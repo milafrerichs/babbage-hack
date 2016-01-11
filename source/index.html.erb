@@ -10,18 +10,20 @@ title: Haushalt Rheinland-Pfalz
     <dimension-filter dimension='hauptfunktion.hauptfunktionbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
   </div>
   <filter filter="einahmenausgaben"></filter>
-  <div class="dropdown">
-    <div class="btn-group" dropdown ng-show="einahmenausgaben.length">
-      <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{einahmeAusgabe}} <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <li ng-repeat="attr in einahmenausgaben">
-          <a ng-click="changeEinahmenAusgaben(attr)">
-            <strong>{{attr.label}}</strong>
-          </a>
-        </li>
-      </ul>
+  <einahme-ausgabe filter="einahmenausgaben" selected="Einahmen" change="changeEinahmenAusgaben(attr)">
+    <div class="dropdown">
+      <div class="btn-group" dropdown ng-show="filter.length">
+        <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="attr in filter">
+            <a ng-click="update(attr)">
+              <strong>{{attr.label}}</strong>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </einahme-ausgabe>
       <babbage-treemap drilldown="funktionbezeichnung.funktionbezeichnung" aggregates=regv2016.sum>
       </babbage-treemap>
   </babbage>

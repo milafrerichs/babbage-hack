@@ -23,11 +23,7 @@ demo.controller('DemoCtrl', function ($scope) {
   }
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
   $scope.changeEinahmenAusgaben = function(attr) {
-    $scope.einahmeAusgabe = attr.id;
-    $scope.einahmeAusgabe = attr.label;
-
     $scope.defaultCut = [attr.id];
-    $scope.state.cut = $scope.defaultCut;
   }
   $scope.setTile = function(tile) {
     $scope.reset = true;
