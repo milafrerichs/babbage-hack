@@ -4,12 +4,21 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
     replace: true,
     require: '^babbage',
     scope: { },
-    template: '<table class="treemap-table table table-condensed"> <tr> <th>Titel</th> <th class="num">Betrag</th> <th class="num">Anteil</th> </tr> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i> {{row.name}} </td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> <tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr>',
+    template: '<table class="treemap-table table table-condensed"> <tr> <th>Titel</th> <th class="num">Betrag</th> <th class="num">Anteil</th> </tr> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> <tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr>',
     link: function(scope, element, attrs, babbageCtrl) {
       scope.rows = [];
 			scope.summary = {};
 
       scope.queryLoaded = false;
+
+      scope.setTile = function(row) {
+        var currentState = babbageCtrl.getState(),
+          newLevel = babbageCtrl.getNextHierarchyLevel(),
+          cut = currentState.tile[0] + ':' + row.name;
+        currentState.tile = [ newLevel ];
+        currentState.cut = currentState.cut.concat([ cut ]);
+        babbageCtrl.setState(currentState);
+      };
 
       var query = function(model, state) {
         var tile = asArray(state.tile)[0],
