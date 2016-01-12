@@ -2,27 +2,27 @@ var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui
 
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
-  $scope.defaultCut = ['titelart:Einnahmetitel', 'jahr:2016'];
+	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Einnahme'];
   $scope.state = {
     tile: ['hauptgruppe.hauptgruppenbezeichnung'],
     cut: $scope.defaultCut,
     hierarchies: {
-      'einzelplan.einzelplanbezeichnung': {
+      'einzelplanbezeichnung.einzelplanbezeichnung': {
         label: 'Einzelplan',
-        levels: ['kapitel.kapitelbezeichnung', 'titel.titelbezeichnung']
+        levels: ['kapitel.kapitelbezeichnung', 'zweckbestimmung.zweckbestimmung']
       },
       'hauptgruppe.hauptgruppenbezeichnung': {
         label: 'Hauptgruppe',
-        levels: [ 'obergruppe.obergruppenbezeichnung', 'gruppe.gruppenbezeichnung']
+        levels: [ 'obergruppe.obergruppenbezeichnung', 'gruppenbezeichnung.gruppenbezeichnung']
       },
-      'hauptfunktion.hauptfunktionsbezeichnung': {
+      'hauptfunktion.hauptfunktionbezeichnung': {
         label: 'Hauptfunktion',
-        levels: ['oberfunktion.oberfunktionsbezeichnung', 'funktion.funktionsbezeichnung']
+        levels: ['oberfunktion.oberfunktionbezeichnung', 'funktionbezeichnung.funktionbezeichnung']
       }
     }
   }
-  $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'titelart:Einnahmetitel'},{label: 'Ausgaben', id: 'titelart:Ausgabetitel'}]
-  $scope.jahr = [{label: '2016', id: 'jahr:2016'},{label: '2017', id: 'jahr:2017'}]
+  $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
+
   $scope.setTile = function(tile) {
     $scope.reset = true;
     $scope.state.tile = [tile];
