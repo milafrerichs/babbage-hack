@@ -22,9 +22,7 @@ demo.controller('DemoCtrl', function ($scope) {
     }
   }
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
-  $scope.changeEinahmenAusgaben = function(attr) {
-    $scope.defaultCut = [attr.id];
-  }
+  $scope.jahr = [{label: '2016', id: 'jahr:2016'},{label: '2017', id: 'jahr:2017'}]
   $scope.setTile = function(tile) {
     $scope.reset = true;
     $scope.state.tile = [tile];
