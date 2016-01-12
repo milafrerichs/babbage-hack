@@ -41,7 +41,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
       }
       scope.valueForLevel = function(level) {
         for(var name in dimensions) {
-          if(dimensions[name].key_ref == level) {
+          if(dimensions[name].label_ref == level) {
             return dimensions[name].label;
           }
         }
