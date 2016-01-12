@@ -9,8 +9,7 @@ title: Haushalt Rheinland-Pfalz
     <dimension-filter dimension='einzelplan.einzelplanbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
     <dimension-filter dimension='hauptfunktion.hauptfunktionsbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
   </div>
-  <filter filter="einahmenausgaben"></filter>
-  <einahme-ausgabe filter="einahmenausgaben" selected="Einahmen" change="changeEinahmenAusgaben(attr)">
+  <babbage-cut-filter filter="einahmenausgaben" selected="Einahmen" default-cut="defaultCut">
     <div class="dropdown">
       <div class="btn-group" dropdown ng-show="filter.length">
         <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
@@ -23,7 +22,21 @@ title: Haushalt Rheinland-Pfalz
         </ul>
       </div>
     </div>
-  </einahme-ausgabe>
+  </babbage-cut-filter>
+  <babbage-cut-filter filter="jahr" selected="2016" default-cut="defaultCut">
+    <div class="dropdown">
+      <div class="btn-group" dropdown ng-show="filter.length">
+        <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="attr in filter">
+            <a ng-click="update(attr)">
+              <strong>{{attr.label}}</strong>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </babbage-cut-filter>
       <babbage-treemap drilldown="funktionbezeichnung.funktionbezeichnung" aggregates=regv2016.sum>
       </babbage-treemap>
       <treemap-table></treemap-table>
