@@ -16,9 +16,11 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
           newLevel = babbageCtrl.getNextHierarchyLevel(),
             currentKey = babbageCtrl.getDimensionKey(currentState.tile[0]);
           cut = currentKey + ':' + row[currentKey];
-        currentState.tile = [ newLevel];
-        currentState.cut = currentState.cut.concat([cut]);
-        babbageCtrl.setState(currentState);
+        if(newLevel) {
+          currentState.tile = [ newLevel];
+          currentState.cut = currentState.cut.concat([cut]);
+          babbageCtrl.setState(currentState);
+        }
       };
 
       var query = function(model, state) {
