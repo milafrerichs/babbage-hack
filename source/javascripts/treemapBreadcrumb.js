@@ -29,7 +29,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
           var cutElements = cut.split(":");
           var include = true;
           for(var j=0;j<levelLength;j++) {
-            if(cutElements[0] == levels[j]) {
+            if(cutElements[0] == babbageCtrl.getDimensionKey(levels[j])) {
               include = false;
             }
           }
