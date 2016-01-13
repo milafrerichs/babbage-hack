@@ -16,6 +16,11 @@ d3.locale.de_DE = d3.locale({
 });
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.")
+
+treemapNameFunc = function(cell, ref, model) {
+  return cell[model.dimensions[ref].key_ref] + " - " + cell[model.dimensions[ref].label_ref];
+};
+ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
 	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Einnahme'];
