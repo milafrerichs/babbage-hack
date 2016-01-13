@@ -20,20 +20,20 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
 	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Einnahme'];
   $scope.state = {
-    tile: ['hauptgruppe.hauptgruppenbezeichnung'],
+    tile: ['hauptgruppe'],
     cut: $scope.defaultCut,
     hierarchies: {
-      'einzelplanbezeichnung.einzelplanbezeichnung': {
+      'einzelplanbezeichnung': {
         label: 'Einzelplan',
-        levels: ['kapitel.kapitelbezeichnung', 'zweckbestimmung.zweckbestimmung']
+        levels: ['kapitel', 'zweckbestimmung']
       },
-      'hauptgruppe.hauptgruppenbezeichnung': {
+      'hauptgruppe': {
         label: 'Hauptgruppe',
-        levels: [ 'obergruppe.obergruppenbezeichnung', 'gruppenbezeichnung.gruppenbezeichnung']
+        levels: [ 'obergruppe', 'gruppenbezeichnung']
       },
-      'hauptfunktion.hauptfunktionbezeichnung': {
+      'hauptfunktion': {
         label: 'Hauptfunktion',
-        levels: ['oberfunktion.oberfunktionbezeichnung', 'funktionbezeichnung.funktionbezeichnung']
+        levels: ['oberfunktion', 'funktionbezeichnung']
       }
     }
   }

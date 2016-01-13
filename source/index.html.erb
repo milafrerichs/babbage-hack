@@ -5,9 +5,6 @@ title: Haushalt Rheinland-Pfalz
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
   <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
   <div class='dimension-filters'>
-    <dimension-filter dimension='hauptgruppe.hauptgruppenbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
-    <dimension-filter dimension='einzelplanbezeichnung.einzelplanbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
-    <dimension-filter dimension='hauptfunktion.hauptfunktionbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
   </div>
   <babbage-cut-filter filter="einahmenausgaben" selected="Einahmen" default-cut="defaultCut">
     <div class="dropdown">
@@ -21,6 +18,9 @@ title: Haushalt Rheinland-Pfalz
           </li>
         </ul>
       </div>
+      <dimension-filter dimension='hauptgruppe' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
+      <dimension-filter dimension='einzelplanbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
+      <dimension-filter dimension='hauptfunktion' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
     </div>
   </babbage-cut-filter>
       <babbage-treemap drilldown="funktionbezeichnung.funktionbezeichnung" aggregates=regv2016.sum>
