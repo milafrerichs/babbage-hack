@@ -14,9 +14,10 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.setTile = function(row) {
         var currentState = babbageCtrl.getState(),
           newLevel = babbageCtrl.getNextHierarchyLevel(),
-          cut = currentState.tile[0] + ':' + row.name;
-        currentState.tile = [ newLevel ];
-        currentState.cut = currentState.cut.concat([ cut ]);
+            currentKey = babbageCtrl.getDimensionKey(currentState.tile[0]);
+          cut = currentKey + ':' + row[currentKey];
+        currentState.tile = [ newLevel];
+        currentState.cut = currentState.cut.concat([cut]);
         babbageCtrl.setState(currentState);
       };
 
@@ -61,7 +62,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         for (var i in data.cells) {
           var cell = data.cells[i];
           cell.value_fmt = ngBabbageGlobals.numberFormat(Math.round(cell[areaRef]));
-          cell.name = cell[tileRef];
+          cell.name = ngBabbageGlobals.treemapNameFunc(cell,tileRef,model);
           cell.color = ngBabbageGlobals.colorScale(i);
 					cell.percentage = d3.locale.de_DE.numberFormat("%")(cell[areaRef] / Math.max(data.summary[areaRef], 1));
           scope.rows.push(cell);
