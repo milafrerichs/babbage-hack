@@ -14,9 +14,10 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.setTile = function(row) {
         var currentState = babbageCtrl.getState(),
           newLevel = babbageCtrl.getNextHierarchyLevel(),
-          cut = currentState.tile[0] + ':' + row.name;
-        currentState.tile = [ newLevel ];
-        currentState.cut = currentState.cut.concat([ cut ]);
+            currentKey = babbageCtrl.getDimensionKey(currentState.tile[0]);
+          cut = currentKey + ':' + row[currentKey];
+        currentState.tile = [ newLevel];
+        currentState.cut = currentState.cut.concat([cut]);
         babbageCtrl.setState(currentState);
       };
 
