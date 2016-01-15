@@ -49,4 +49,8 @@ demo.controller('DemoCtrl', function ($scope) {
     $scope.state.tile = [tile];
     $scope.state.cut = [ $scope.defaultCut ];
   }
+  $scope.showTooltip = true;
+  $scope.tooltipContent = function(d) {
+    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + d3.format("%")(d._percentage) + " )";
+  }
 });
