@@ -43,7 +43,7 @@ demo.controller('DemoCtrl', function ($scope) {
     }
   }
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
-  $scope.anzeige = [{id: 'hauptgruppe', label: 'nach Gruppe' }, {id: 'hauptfunktion', label: 'nach Funktion'}, {id: 'einzelplanbezeichnung', label: 'nach Einzelplan'}];
+  $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Funktion'}, {id: 'einzelplanbezeichnung', label: 'Einzelplan'}];
 
   $scope.setTile = function(tile) {
     $scope.reset = true;
