@@ -45,6 +45,11 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
   $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Funktion'}, {id: 'einzelplanbezeichnung', label: 'Einzelplan'}];
 
+  $scope.showTooltip = true;
+  $scope.tooltipContent = function(d) {
+    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + d3.format("%")(d._percentage) + " )";
+  };
+
   $scope.setTile = function(tile) {
     $scope.reset = true;
     $scope.state.tile = [tile];
