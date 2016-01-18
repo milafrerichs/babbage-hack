@@ -3,15 +3,16 @@ title: Haushalt Rheinland-Pfalz
 ---
 <div ng-controller="DemoCtrl">
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
-    <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
     <div class='dimension-filters'>
+      <p class="explanation">
+      </p>
       <div class='filter'>
         <h4>Anzeigen nach</h4>
         <div class='filter-element'>
           <dimension-filter filter='anzeige' selected="Plan" default-cut='defaultCut'>
             <div class="dropdown">
               <div class="btn-group" dropdown ng-show="filter.length">
-                <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
+                <a class="btn btn-default dropdown-toggle ng-click" dropdown-toggle>{{selected}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li ng-repeat="attr in filter">
                     <a ng-click="update(attr)">
@@ -44,6 +45,7 @@ title: Haushalt Rheinland-Pfalz
         </div>
       </div>
     </div>
+    <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
     <babbage-treemap show-tooltip=true tooltip-content="tooltipContent(d)"></babbage-treemap>
     <treemap-table></treemap-table>
   </babbage>
