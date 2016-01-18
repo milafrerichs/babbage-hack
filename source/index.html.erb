@@ -3,27 +3,51 @@ title: Haushalt Rheinland-Pfalz
 ---
 <div ng-controller="DemoCtrl">
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
-    <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
     <div class='dimension-filters'>
-      <dimension-filter dimension='hauptgruppe' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Gruppe</a></dimension-filter>
-      <dimension-filter dimension='einzelplanbezeichnung' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Plan</a></dimension-filter>
-      <dimension-filter dimension='hauptfunktion' default-cut='defaultCut'><a class='btn btn-default' href='' ng-click='update()'>nach Funktion</a></dimension-filter>
-    </div>
-    <babbage-cut-filter filter="einahmenausgaben" selected="Einahmen" default-cut="defaultCut">
-      <div class="dropdown">
-        <div class="btn-group" dropdown ng-show="filter.length">
-          <a class="btn btn-default dropdown-toggle ng-link" dropdown-toggle>{{selected}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li ng-repeat="attr in filter">
-              <a ng-click="update(attr)">
-                <strong>{{attr.label}}</strong>
-              </a>
-            </li>
-          </ul>
+      <p class="explanation">
+      </p>
+      <div class='filter'>
+        <h4>Anzeigen nach</h4>
+        <div class='filter-element'>
+          <dimension-filter filter='anzeige' selected="Plan" default-cut='defaultCut'>
+            <div class="dropdown">
+              <div class="btn-group" dropdown ng-show="filter.length">
+                <a class="btn btn-default dropdown-toggle ng-click" dropdown-toggle>{{selected}} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="attr in filter">
+                    <a ng-click="update(attr)">
+                      <strong>{{attr.label}}</strong>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </dimension-filter>
         </div>
       </div>
-    </babbage-cut-filter>
-    <babbage-treemap></babbage-treemap>
+      <div class='filter'>
+        <h4>Typ</h4>
+        <div class='filter-element'>
+          <babbage-cut-filter filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut">
+            <div class="dropdown">
+              <div class="btn-group" dropdown ng-show="filter.length">
+                <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li ng-repeat="attr in filter">
+                    <a ng-click="update(attr)">
+                      <strong>{{attr.label}}</strong>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </babbage-cut-filter>
+        </div>
+      </div>
+    </div>
+    <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
+    <babbage-treemap show-tooltip=true tooltip-content="tooltipContent(d)"></babbage-treemap>
     <treemap-table></treemap-table>
   </babbage>
 </div>
+<div id="tooltip"></div>

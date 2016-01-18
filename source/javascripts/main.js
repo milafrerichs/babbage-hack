@@ -15,7 +15,7 @@ d3.locale.de_DE = d3.locale({
   shortMonths: ["Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
 });
 
-ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.")
+ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 
 treemapNameFunc = function(cell, ref, model) {
   return cell[model.dimensions[ref].key_ref] + " - " + cell[model.dimensions[ref].label_ref];
@@ -23,9 +23,9 @@ treemapNameFunc = function(cell, ref, model) {
 ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
-	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Einnahme'];
+	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe'];
   $scope.state = {
-    tile: ['hauptgruppe'],
+    tile: ['einzelplanbezeichnung'],
     cut: $scope.defaultCut,
     hierarchies: {
       'einzelplanbezeichnung': {
@@ -41,12 +41,18 @@ demo.controller('DemoCtrl', function ($scope) {
         levels: ['oberfunktion', 'funktionbezeichnung']
       }
     }
-  }
-  $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}]
+  };
+  $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
+  $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Funktion'}, {id: 'einzelplanbezeichnung', label: 'Einzelplan'}];
+
+  $scope.showTooltip = true;
+  $scope.tooltipContent = function(d) {
+    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + d3.format("%")(d._percentage) + " )";
+  };
 
   $scope.setTile = function(tile) {
     $scope.reset = true;
     $scope.state.tile = [tile];
     $scope.state.cut = [ $scope.defaultCut ];
-  }
+  };
 });
