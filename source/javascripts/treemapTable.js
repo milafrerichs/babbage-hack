@@ -4,7 +4,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
     replace: true,
     require: '^babbage',
     scope: { },
-    template: '<table class="treemap-table table table-condensed"> <tr> <th>Titel</th> <th class="num betrag">Betrag</th> <th class="num">Anteil</th> </tr> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> <tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr>',
+    template: '<table class="treemap-table table table-condensed"><thead> <tr> <th>Titel</th> <th class="num betrag">Betrag</th> <th class="num">Anteil</th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
     link: function(scope, element, attrs, babbageCtrl) {
       scope.rows = [];
 			scope.summary = {};
@@ -25,8 +25,8 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 
       var query = function(model, state) {
         var tile = asArray(state.tile)[0],
-            area = asArray(state.area)[0],
-            area = area ? [area] : defaultArea(model);
+            area = asArray(state.area)[0];
+        area = area ? [area] : defaultArea(model);
 
         var q = babbageCtrl.getQuery();
         q.aggregates = area;
@@ -54,11 +54,11 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         dfd.then(function(res) {
           queryResult(res.data, q, model, state);
         });
-      }
+      };
       var queryResult = function(data, q, model, state) {
         var tileRef = asArray(state.tile)[0],
-            areaRef = asArray(state.area)[0],
-            areaRef = areaRef ? [areaRef] : defaultArea(model);
+            areaRef = asArray(state.area)[0];
+        areaRef = areaRef ? [areaRef] : defaultArea(model);
 
         scope.rows = [];
         for (var i in data.cells) {
@@ -68,9 +68,9 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
           cell.color = ngBabbageGlobals.colorScale(i);
 					cell.percentage = d3.locale.de_DE.numberFormat("%")(cell[areaRef] / Math.max(data.summary[areaRef], 1));
           scope.rows.push(cell);
-        };
+        }
 				scope.summary = { value_fmt: ngBabbageGlobals.numberFormat(Math.round(data.summary[areaRef]))};
-      }
+      };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
         query(model, state);
       });
@@ -85,5 +85,5 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         return [];
       };
     }
-  }
+  };
 }]);

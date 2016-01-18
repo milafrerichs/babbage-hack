@@ -16,9 +16,9 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
         for(var i=0;i<levelLength;i++) {
           if(scope.levels[i] == level) {
             return scope.levels.slice(i);
-          };
+          }
         }
-      }
+      };
       var cutsWithOutLevels = function(levels) {
         var state = babbageCtrl.getState();
         var cutLength = state.cut.length;
@@ -38,24 +38,24 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
           }
         }
         return newCuts;
-      }
+      };
       scope.valueForLevel = function(level) {
         for(var name in dimensions) {
           if(name == level) {
             return dimensions[name].label;
           }
         }
-      }
+      };
       scope.isActive = function(level) {
         var state = babbageCtrl.getState();
         return level == state.tile[0];
-      }
+      };
       scope.setTile = function(name) {
         var state = babbageCtrl.getState();
         state.cut = cutsWithOutLevels(removeLevels(name));
         state.tile = [name];
         babbageCtrl.setState(state);
-      }
+      };
       var getLevels = function(hierarchies) {
         var state = babbageCtrl.getState();
         for(var name in hierarchies) {
@@ -75,5 +75,5 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
       var state = babbageCtrl.getState();
       scope.levels = getLevels(state.hierarchies);
     }
-  }
+  };
 }]);
