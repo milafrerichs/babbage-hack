@@ -1,20 +1,25 @@
-demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
+demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q) {
   return {
     restrict: 'EA',
     replace: true,
     require: '^babbage',
-    scope: { },
-    template: '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ol>',
+    scope: {
+      showCut: '='
+    },
+    template: '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level.name);">{{level.parent_cut}}</a></li></ol>',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {
         dimensions = model.dimensions;
-        scope.levels = getLevels(state.hierarchies);
+        var levelPromise = getLevels(dimensions);
+        levelPromise.then(function(levels) {
+          scope.levels = levels;
+        });
       });
       var removeLevels = function(level) {
         var levelLength = scope.levels.length;
         for(var i=0;i<levelLength;i++) {
-          if(scope.levels[i] == level) {
+          if(scope.levels[i].name == level) {
             return scope.levels.slice(i);
           };
         }
@@ -29,7 +34,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
           var cutElements = cut.split(":");
           var include = true;
           for(var j=0;j<levelLength;j++) {
-            if(cutElements[0] == babbageCtrl.getDimensionKey(levels[j])) {
+            if(cutElements[0] == babbageCtrl.getDimensionKey(levels[j].name)) {
               include = false;
             }
           }
@@ -56,24 +61,67 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
         state.tile = [name];
         babbageCtrl.setState(state);
       }
-      var getLevels = function(hierarchies) {
+      function labelForKey(data, keyRef, labelRef, value) {
+        for(var i=0;i<data.length;i++) {
+          if(data[i][keyRef] == value) {
+            return data[i][labelRef];
+          }
+        }
+      }
+      function dimensionLabel(name) {
+        return dimensions[name].label;
+      }
+      var getLevels = function(dimensions) {
+        var deferred = $q.defer();
         var state = babbageCtrl.getState();
+        var hierarchies = state.hierarchies;
+
+        var elements = [];
+        var promises = [];
+        var newLevels = [];
         for(var name in hierarchies) {
           var hierarchy = hierarchies[name];
           var levels = hierarchy.levels;
           var levelLength = levels.length;
-          var prevs = [name];
+          var prevs = [{name: name, label: dimensions[ name ].label , parent_cut: dimensions[name].label}];
+          var dimensionPromises = [babbageCtrl.getDimensionMembers(name)];
           for(var i=0;i<levelLength;i++) {
-            prevs.push(levels[i]);
             if(state.tile[0] == levels[i]) {
-              return prevs;
+              elements = [name].concat(levels);
+              promises = dimensionPromises;
+              newLevels = prevs;
+              break;
+              break;
             }
+            dimensionPromises.push(babbageCtrl.getDimensionMembers(levels[i]))
           }
         }
-        return [state.tile[0]];
+        if(elements.length > 0) {
+          $q.all(promises).then(function(results) {
+            var state = babbageCtrl.getState();
+            var cuts = {};
+            for(var k=0;k<state.cut.length;k++) {
+              var cut = state.cut[k].split(":");
+              cuts[cut[0]] = cut[1];
+            }
+            for(var j=0;j<results.length;j++) {
+              var result = results[j];
+              var parentName = elements[j];
+              var name = elements[j+1];
+              var keyRef = dimensions[parentName].key_ref;
+              var labelRef = dimensions[parentName].label_ref;
+              var value = cuts[keyRef];
+              newLevels.push({name: name, name: dimensions[name].label, parent_cut: labelForKey(result.data.data, keyRef, labelRef, value)});
+            }
+            deferred.resolve(newLevels);
+          });
+        }else {
+          deferred.resolve([{name: state.tile[0], label: dimensions[ state.tile[0] ].label, parent_cut: dimensions[state.tile[0]].label }]);
+        }
+        return deferred.promise;
       };
       var state = babbageCtrl.getState();
-      scope.levels = getLevels(state.hierarchies);
+      //scope.levels = getLevels(state.hierarchies);
     }
   }
 }]);
