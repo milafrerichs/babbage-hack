@@ -8,7 +8,7 @@ title: Haushalt Rheinland-Pfalz
       <div class='filter'>
         <h4>Anzeigen nach</h4>
         <div class='filter-element'>
-          <dimension-filter filter='anzeige' selected="Gruppe" default-cut='defaultCut'>
+          <dimension-filter filter='anzeige' selected="Plan" default-cut='defaultCut'>
             <div class="dropdown">
               <div class="btn-group" dropdown ng-show="filter.length">
                 <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
@@ -27,7 +27,7 @@ title: Haushalt Rheinland-Pfalz
       <div class='filter'>
         <h4>Typ</h4>
         <div class='filter-element'>
-          <babbage-cut-filter filter="einahmenausgaben" selected="Einahmen" default-cut="defaultCut">
+          <babbage-cut-filter filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut">
             <div class="dropdown">
               <div class="btn-group" dropdown ng-show="filter.length">
                 <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
