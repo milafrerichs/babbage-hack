@@ -4,7 +4,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
     replace: true,
     require: '^babbage',
     scope: { },
-    template: '<table class="treemap-table table table-condensed"><thead> <tr> <th>Titel</th> <th class="num betrag">Betrag</th> <th class="num">Anteil</th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
+    template: '<table class="treemap-table table table-condensed"><thead> <tr> <th>Titel</th> <th class="num betrag">Betrag</th> <th class="num">Anteil</th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td> <i ng-style="{color: row.color};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
     link: function(scope, element, attrs, babbageCtrl) {
       scope.rows = [];
 			scope.summary = {};
