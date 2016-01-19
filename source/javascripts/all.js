@@ -1,3 +1,4 @@
+//= require xhr-xdr-adapter
 //= require angular
 //= require angular-filter
 //= require angular-bootstrap
