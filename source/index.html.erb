@@ -9,20 +9,7 @@ title: Haushalt Rheinland-Pfalz
       <div class='filter'>
         <h4>Anzeigen nach</h4>
         <div class='filter-element'>
-          <dimension-filter filter='anzeige' selected="Plan" default-cut='defaultCut'>
-            <div class="dropdown">
-              <div class="btn-group" dropdown ng-show="filter.length">
-                <a class="btn btn-default dropdown-toggle ng-click" dropdown-toggle>{{selected}} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li ng-repeat="attr in filter">
-                    <a ng-click="update(attr)">
-                      <strong>{{attr.label}}</strong>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </dimension-filter>
+          <dimension-filter-dropdown filter='anzeige' selected="Plan" default-cut='defaultCut'> </dimension-filter-dropdown>
         </div>
       </div>
       <div class='filter'>
