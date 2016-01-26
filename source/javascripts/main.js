@@ -23,7 +23,7 @@ treemapNameFunc = function(cell, ref, model) {
 ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
-	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe'];
+	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe', 'jahr.jahr:2016'];
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
@@ -43,6 +43,7 @@ demo.controller('DemoCtrl', function ($scope) {
     }
   };
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
+  $scope.jahr = [{label: '2016', id: 'jahr'}];
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelplan'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppe' }];
 
   $scope.showTooltip = true;
