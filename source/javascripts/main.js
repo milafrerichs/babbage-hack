@@ -1,4 +1,4 @@
-var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui.bootstrap', 'ui.select']);
+var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui.bootstrap', 'ui.select', 'budget.templates']);
 
 d3.locale.de_DE = d3.locale({
   decimal: ",",

@@ -9,7 +9,15 @@ demo.directive('dimensionFilter', ['$rootScope', function($rootScope) {
       selected: '@',
       defaultCut: '='
     },
-    template: '<div class="babbage-dimension-filter"></div>',
+    templateUrl: function(tElement, tAttrs) {
+      if(tAttrs.type) {
+        if(tAttrs.type === 'dropdown') {
+          return 'budget-templates/dimension-filter-dropdown.html';
+        }
+      } else {
+        return 'budget-templates/dimension-filter.html';
+      }
+    },
     link: function(scope, element, attrs, babbageCtrl, transclude) {
       transclude(scope, function(clone, scope) {
         element.append(clone);
