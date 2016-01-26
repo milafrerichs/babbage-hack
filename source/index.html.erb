@@ -9,39 +9,13 @@ title: Haushalt Rheinland-Pfalz
       <div class='filter'>
         <h4>Anzeigen nach</h4>
         <div class='filter-element'>
-          <dimension-filter filter='anzeige' selected="Plan" default-cut='defaultCut'>
-            <div class="dropdown">
-              <div class="btn-group" dropdown ng-show="filter.length">
-                <a class="btn btn-default dropdown-toggle ng-click" dropdown-toggle>{{selected}} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li ng-repeat="attr in filter">
-                    <a ng-click="update(attr)">
-                      <strong>{{attr.label}}</strong>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </dimension-filter>
+          <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
         </div>
       </div>
       <div class='filter'>
         <h4>Typ</h4>
         <div class='filter-element'>
-          <babbage-cut-filter filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut">
-            <div class="dropdown">
-              <div class="btn-group" dropdown ng-show="filter.length">
-                <a class="btn btn-default dropdown-toggle" dropdown-toggle class="ng-link">{{selected}} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li ng-repeat="attr in filter">
-                    <a ng-click="update(attr)">
-                      <strong>{{attr.label}}</strong>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </babbage-cut-filter>
+          <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>

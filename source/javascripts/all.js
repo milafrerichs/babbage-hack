@@ -8,5 +8,6 @@
 //= require vega
 //= require vega-lite
 //= require babbage.ui
+//= require templates
 //= require main
 //= require_tree .
