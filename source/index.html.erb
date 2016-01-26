@@ -2,10 +2,16 @@
 title: Haushalt Rheinland-Pfalz
 ---
 <div ng-controller="DemoCtrl">
-  <babbage endpoint="http://52.23.213.247/api/babbage" cube="rp-test" state="state">
+  <babbage endpoint="http://52.23.213.247/api/babbage" cube="rheinland-pfalz" state="state">
     <div class='dimension-filters'>
       <p class="explanation">
       </p>
+      <div class='filter'>
+        <h4>Haushaltsjahr</h4>
+        <div class='filter-element'>
+          <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
+        </div>
+      </div>
       <div class='filter'>
         <h4>Anzeigen nach</h4>
         <div class='filter-element'>

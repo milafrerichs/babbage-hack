@@ -23,27 +23,28 @@ treemapNameFunc = function(cell, ref, model) {
 ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
-	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe'];
+	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe', 'jahr.jahr:2016'];
   $scope.state = {
-    tile: ['einzelplanbezeichnung'],
+    tile: ['einzelplan'],
     cut: $scope.defaultCut,
     hierarchies: {
-      'einzelplanbezeichnung': {
+      'einzelplan': {
         label: 'Einzelplan',
-        levels: ['kapitel', 'zweckbestimmung']
+        levels: ['kapitel', 'titel']
       },
       'hauptgruppe': {
         label: 'Hauptgruppe',
-        levels: [ 'obergruppe', 'gruppenbezeichnung']
+        levels: [ 'obergruppe', 'gruppe']
       },
       'hauptfunktion': {
         label: 'Hauptfunktion',
-        levels: ['oberfunktion', 'funktionbezeichnung']
+        levels: ['oberfunktion', 'funktion']
       }
     }
   };
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
-  $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Funktion'}, {id: 'einzelplanbezeichnung', label: 'Einzelplan'}];
+  $scope.jahr = [{label: '2016', id: 'jahr'}];
+  $scope.anzeige = [{id: 'einzelplan', label: 'Einzelplan'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppe' }];
 
   $scope.showTooltip = true;
   $scope.tooltipContent = function(d) {
