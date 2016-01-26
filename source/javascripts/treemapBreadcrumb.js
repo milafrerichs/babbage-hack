@@ -4,7 +4,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
     replace: true,
     require: '^babbage',
     scope: { },
-    template: '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ol>',
+    templateUrl: 'budget-templates/breadcrumb.html',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {
