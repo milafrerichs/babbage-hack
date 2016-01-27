@@ -79,7 +79,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
           cell.value_fmt = ngBabbageGlobals.numberFormat(Math.round(cell[areaRef]));
           cell.name = ngBabbageGlobals.treemapNameFunc(cell,tileRef,model);
           cell.color = ngBabbageGlobals.colorScale(i);
-					cell.percentage = d3.locale.de_DE.numberFormat("%")(cell[areaRef] / Math.max(data.summary[areaRef], 1));
+					cell.percentage = percentFormat(cell[areaRef] / Math.max(data.summary[areaRef], 1));
           scope.rows.push(cell);
         }
 				scope.summary = { value_fmt: ngBabbageGlobals.numberFormat(Math.round(data.summary[areaRef]))};

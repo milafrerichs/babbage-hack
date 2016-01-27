@@ -21,6 +21,10 @@ treemapNameFunc = function(cell, ref, model) {
   return cell[model.dimensions[ref].key_ref] + " - " + cell[model.dimensions[ref].label_ref];
 };
 ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
+
+var percentFormat = function(d) {
+  return d3.locale.de_DE.numberFormat(".1f")(d*100)+" %";
+};
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
 	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe', 'jahr.jahr:2016'];
@@ -48,7 +52,7 @@ demo.controller('DemoCtrl', function ($scope) {
 
   $scope.showTooltip = true;
   $scope.tooltipContent = function(d) {
-    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + d3.format("%")(d._percentage) + " )";
+    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + percentFormat(d._percentage) + " )";
   };
 
   $scope.setTile = function(tile) {
