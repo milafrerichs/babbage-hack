@@ -17,10 +17,25 @@ d3.locale.de_DE = d3.locale({
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 
+truncate = function(name, maxlen, repl) {
+  maxlen = maxlen || 30;
+  repl = repl || '...';
+  if (name.length > maxlen) {
+    return name.substring(0, maxlen - repl.length) + repl;
+  }
+  return name;
+};
 treemapNameFunc = function(cell, ref, model) {
-  return cell[model.dimensions[ref].key_ref] + " - " + cell[model.dimensions[ref].label_ref];
+  return  truncate(cell[model.dimensions[ref].label_ref] + ' ('+cell[model.dimensions[ref].key_ref]+')');
 };
 ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
+
+ngBabbageGlobals.treemapHtmlFunc = function(d) {
+  if (d._percentage < 0.02) {
+    return '';
+  }
+  return d.children ? null : truncate(d._name + ' (' + d._key + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+};
 
 var percentFormat = function(d) {
   return d3.locale.de_DE.numberFormat(".1f")(d*100)+" %";
