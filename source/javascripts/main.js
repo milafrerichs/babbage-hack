@@ -51,6 +51,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelplan'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppe' }];
 
   $scope.showTooltip = true;
+  $scope.showTableKey = true;
   $scope.tooltipContent = function(d) {
     return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " ( " + percentFormat(d._percentage) + " )";
   };
