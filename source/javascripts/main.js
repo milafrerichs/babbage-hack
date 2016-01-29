@@ -41,7 +41,7 @@ var percentFormat = function(d) {
   return d3.locale.de_DE.numberFormat(".1f")(d*100)+" %";
 };
 demo.controller('DemoCtrl', function ($scope) {
-	$scope.defaultCut = ['titelart:Ausgabetitel', 'jahr:2016', 'typ.bezeichnung'];
+	$scope.defaultCut = ['titelart:Ausgabetitel', 'jahr:2016'];
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
@@ -63,7 +63,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'titelart:Einnahmetitel'},{label: 'Ausgaben', id: 'titelart:Ausgabetitel'}];
   $scope.jahr = [{label: '2016', id: 'jahr:2016'},{label: '2017', id: 'jahr:2017'}];
   $scope.typ = [{label: 'Alle', id: 'typ.bezeichnung'},{label: 'Bezirke', id: 'typ.bezeichnung:Bezirke'},{label: 'Senatsverwaltungen', id: 'typ.bezeichnung:Senatsverwaltungen'}, {label: 'Verfassungsorgane', id: 'typ.bezeichnung:Verfassungsorgane'}];
-  $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Funktion'}, {id: 'einzelplan', label: 'Einzelplan'}];
+  $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Politikfelder'}, {id: 'einzelplan', label: 'Einzelplan'}];
 
   $scope.showTooltip = true;
   $scope.showTableKey = true;
