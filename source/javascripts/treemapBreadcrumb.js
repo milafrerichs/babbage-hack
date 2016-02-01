@@ -6,7 +6,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
     scope: {
       showCut: '='
     },
-    template: '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level.name);">{{level.parent_cut}}</a></li></ol>',
+    templateUrl: 'budget-templates/breadcrumb.html',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {

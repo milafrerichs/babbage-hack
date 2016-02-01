@@ -9,7 +9,15 @@ demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
       filter: '=',
       defaultCut: '='
     },
-    template: '<div class="cut-filter"></div>',
+    templateUrl: function(tElement, tAttrs) {
+      if(tAttrs.type) {
+        if(tAttrs.type === 'dropdown') {
+          return 'budget-templates/cut-filter-dropdown.html';
+        }
+      } else {
+        return 'budget-templates/cut-filter.html';
+      }
+    },
     link: function(scope, element, attrs, babbageCtrl, transclude) {
       transclude(scope, function(clone, scope) {
         element.append(clone);

@@ -5,20 +5,30 @@ demo.directive('dimensionFilter', ['$rootScope', function($rootScope) {
     replace: true,
     require: '^babbage',
     scope: {
-      dimension: '@',
+      filter: '=',
+      selected: '@',
       defaultCut: '='
     },
-    template: '<div class="babbage-dimension-filter"></div>',
+    templateUrl: function(tElement, tAttrs) {
+      if(tAttrs.type) {
+        if(tAttrs.type === 'dropdown') {
+          return 'budget-templates/dimension-filter-dropdown.html';
+        }
+      } else {
+        return 'budget-templates/dimension-filter.html';
+      }
+    },
     link: function(scope, element, attrs, babbageCtrl, transclude) {
       transclude(scope, function(clone, scope) {
         element.append(clone);
       });
-      scope.update = function() {
+      scope.update = function(attr) {
         var state = babbageCtrl.getState();
-        state.tile = [scope.dimension];
+        state.tile = [attr.id];
         state.cut = asArray(scope.defaultCut);
+        scope.selected = attr.label;
         babbageCtrl.setState(state);
-      }
+      };
     }
-  }
+  };
 }]);

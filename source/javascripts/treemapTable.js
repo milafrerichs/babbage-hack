@@ -3,11 +3,23 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
     restrict: 'EA',
     replace: true,
     require: '^babbage',
-    scope: { },
-    template: '<table class="treemap-table table table-condensed"> <tr> <th>Titel</th> <th class="num betrag">Betrag</th> <th class="num">Anteil</th> </tr> <tr ng-repeat="row in rows"> <td> <i style="color: {{row.color}};" class="fa fa-square"></i><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> <tr> <th> Total </th> <th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr>',
+    scope: { showKey: '=?' },
+    template: '<table class="treemap-table table table-condensed"><thead> <tr> <th></th><th ng-show="showKey" ng-click="sort(\'key\');" ng-class="{ sort: activeOrder(\'key\') }">#</th> <th ng-click="sort(\'name\')" ng-class="{ sort: activeOrder(\'name\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">{{nameTitle}}<span class="caret"></span></th> <th class="num betrag" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">Betrag<span class="caret"></span></th> <th class="num" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">Anteil<span class="caret"></span></th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td> <i ng-style="{color: row.color};" class="fa fa-square"></i></td><td ng-show="showKey"> {{row.key}} </td><td><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th> Summe </th> <th></th><th ng-show="showKey"></th><th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
     link: function(scope, element, attrs, babbageCtrl) {
+      var orderKeys = {};
+      scope.showKey = angular.isDefined(scope.showKey) ? scope.showKey: false;
+      scope.order = [];
+      currentOrder = 'value';
+      scope.direction = ['desc', 'asc'];
       scope.rows = [];
 			scope.summary = {};
+
+      scope.activeOrder = function(order) {
+        return currentOrder == order;
+      };
+      scope.activeDirection = function(direction) {
+        return scope.direction[0] == direction;
+      };
 
       scope.queryLoaded = false;
 
@@ -25,14 +37,14 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 
       var query = function(model, state) {
         var tile = asArray(state.tile)[0],
-            area = asArray(state.area)[0],
-            area = area ? [area] : defaultArea(model);
+            area = asArray(state.area)[0];
+        area = area ? [area] : defaultArea(model);
 
         var q = babbageCtrl.getQuery();
         q.aggregates = area;
         q.drilldown = [tile];
 
-        var order = [];
+        var order = scope.order;
         for (var i in q.order) {
           var o = q.order[i];
           if ([tile, area].indexOf(o.ref) != -1) {
@@ -49,31 +61,42 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 
         scope.cutoffWarning = false;
         scope.queryLoaded = true;
+        orderKeys.name = model.dimensions[tile].label_ref;
+        orderKeys.key = model.dimensions[tile].key_ref;
+        orderKeys.value = area[0];
         var dfd = $http.get(babbageCtrl.getApiUrl('aggregate'),
                             babbageCtrl.queryParams(q));
         dfd.then(function(res) {
           queryResult(res.data, q, model, state);
         });
-      }
+      };
       var queryResult = function(data, q, model, state) {
         var tileRef = asArray(state.tile)[0],
-            areaRef = asArray(state.area)[0],
-            areaRef = areaRef ? [areaRef] : defaultArea(model);
+            areaRef = asArray(state.area)[0];
+        areaRef = areaRef ? [areaRef] : defaultArea(model);
 
         scope.rows = [];
+        scope.nameTitle = model.dimensions[tileRef].label;
         for (var i in data.cells) {
           var cell = data.cells[i];
           cell.value_fmt = ngBabbageGlobals.numberFormat(Math.round(cell[areaRef]));
-          cell.name = ngBabbageGlobals.treemapNameFunc(cell,tileRef,model);
+          cell.name = cell[model.dimensions[tileRef].label_ref];
+          cell.key = cell[model.dimensions[tileRef].key_ref];
           cell.color = ngBabbageGlobals.colorScale(i);
-					cell.percentage = d3.locale.de_DE.numberFormat("%")(cell[areaRef] / Math.max(data.summary[areaRef], 1));
+					cell.percentage = percentFormat(cell[areaRef] / Math.max(data.summary[areaRef], 1));
           scope.rows.push(cell);
-        };
+        }
 				scope.summary = { value_fmt: ngBabbageGlobals.numberFormat(Math.round(data.summary[areaRef]))};
-      }
+      };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
         query(model, state);
       });
+    scope.sort = function(order) {
+      scope.direction = scope.direction.reverse();
+      currentOrder = order;
+      scope.order = [{ref: orderKeys[order], direction:  scope.direction[0]}];
+      babbageCtrl.update();
+    };
     scope.$on('$destroy', unsubscribe);
       var defaultArea = function(model) {
         for (var i in model.aggregates) {
@@ -85,5 +108,5 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         return [];
       };
     }
-  }
+  };
 }]);

@@ -1,3 +1,4 @@
+//= require xhr-xdr-adapter
 //= require angular
 //= require angular-filter
 //= require angular-bootstrap
@@ -7,5 +8,6 @@
 //= require vega
 //= require vega-lite
 //= require babbage.ui
+//= require templates
 //= require main
 //= require_tree .
