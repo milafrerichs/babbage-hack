@@ -21,9 +21,9 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
         for(var i=0;i<levelLength;i++) {
           if(scope.levels[i].name == level) {
             return scope.levels.slice(i);
-          };
+          }
         }
-      }
+      };
       var cutsWithOutLevels = function(levels) {
         var state = babbageCtrl.getState();
         var cutLength = state.cut.length;
@@ -43,24 +43,24 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
           }
         }
         return newCuts;
-      }
+      };
       scope.valueForLevel = function(level) {
         for(var name in dimensions) {
           if(name == level) {
             return dimensions[name].label;
           }
         }
-      }
+      };
       scope.isActive = function(level) {
         var state = babbageCtrl.getState();
         return level == state.tile[0];
-      }
+      };
       scope.setTile = function(name) {
         var state = babbageCtrl.getState();
         state.cut = cutsWithOutLevels(removeLevels(name));
         state.tile = [name];
         babbageCtrl.setState(state);
-      }
+      };
       function labelForKey(data, keyRef, labelRef, value) {
         for(var i=0;i<data.length;i++) {
           if(data[i][keyRef] == value) {
@@ -70,6 +70,24 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
       }
       function dimensionLabel(name) {
         return dimensions[name].label;
+      }
+      function getCutObj(cuts) {
+        var cutObj = {};
+        for(var k=0;k<cuts.length;k++) {
+          var cut = cuts[k].split(":");
+          cutObj[cut[0]] = cut[1];
+        }
+        return cutObj;
+      }
+      function isCurrentLevel(tile, level) {
+        return tile == level;
+      }
+      function collectDimensionPromises(names) {
+        var promises = [];
+        for(var i=0;i<names.length;i++) {
+          promises.push(babbageCtrl.getDimensionMembers(names[i]));
+        }
+        return promises;
       }
       var getLevels = function(dimensions) {
         var deferred = $q.defer();
@@ -83,27 +101,22 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
           var hierarchy = hierarchies[name];
           var levels = hierarchy.levels;
           var levelLength = levels.length;
-          var prevs = [{name: name, label: dimensions[ name ].label , parent_cut: dimensions[name].label}];
-          var dimensionPromises = [babbageCtrl.getDimensionMembers(name)];
+          var mainHierarchy = [{name: name, label: dimensions[ name ].label , parent_cut: dimensions[name].label}];
+          var dimensionNames = [name];
           for(var i=0;i<levelLength;i++) {
-            if(state.tile[0] == levels[i]) {
+            if(isCurrentLevel(state.tile[0],levels[i])) {
               elements = [name].concat(levels);
-              promises = dimensionPromises;
-              newLevels = prevs;
-              break;
+              promises = collectDimensionPromises(dimensionNames);
+              newLevels = mainHierarchy;
               break;
             }
-            dimensionPromises.push(babbageCtrl.getDimensionMembers(levels[i]))
+            dimensionNames.push(levels[i]);
           }
         }
         if(elements.length > 0) {
           $q.all(promises).then(function(results) {
             var state = babbageCtrl.getState();
-            var cuts = {};
-            for(var k=0;k<state.cut.length;k++) {
-              var cut = state.cut[k].split(":");
-              cuts[cut[0]] = cut[1];
-            }
+            var cuts = getCutObj(state.cut);
             for(var j=0;j<results.length;j++) {
               var result = results[j];
               var parentName = elements[j];
@@ -111,7 +124,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
               var keyRef = dimensions[parentName].key_ref;
               var labelRef = dimensions[parentName].label_ref;
               var value = cuts[keyRef];
-              newLevels.push({name: name, name: dimensions[name].label, parent_cut: labelForKey(result.data.data, keyRef, labelRef, value)});
+              newLevels.push({name: name, label: dimensions[name].label, parent_cut: labelForKey(result.data.data, keyRef, labelRef, value)});
             }
             deferred.resolve(newLevels);
           });
@@ -123,5 +136,5 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
       var state = babbageCtrl.getState();
       //scope.levels = getLevels(state.hierarchies);
     }
-  }
+  };
 }]);
