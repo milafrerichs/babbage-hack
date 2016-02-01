@@ -17,5 +17,5 @@ angular.module('budget-templates/cut-filter-dropdown.html', []).run(['$templateC
 }]);
 
 angular.module('budget-templates/breadcrumb.html', []).run(['$templateCache', function($templateCache) {
-  $templateCache.put('budget-templates/breadcrumb.html', '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level);">{{valueForLevel(level)}}</a></li></ol>');
+  $templateCache.put('budget-templates/breadcrumb.html', '<ol class="breadcrumb"><li ng-repeat="level in levels" ng-class="{ active: isActive(level) }"><a href="" ng-click="setTile(level.name);">{{level.parent_cut}}</a></li></ol>');
 }]);

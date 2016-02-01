@@ -1,20 +1,25 @@
-demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
+demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q) {
   return {
     restrict: 'EA',
     replace: true,
     require: '^babbage',
-    scope: { },
+    scope: {
+      showCut: '='
+    },
     templateUrl: 'budget-templates/breadcrumb.html',
     link: function(scope, element, attrs, babbageCtrl) {
       var dimensions;
       babbageCtrl.subscribe(function(event, model, state) {
         dimensions = model.dimensions;
-        scope.levels = getLevels(state.hierarchies);
+        var levelPromise = getLevels(dimensions);
+        levelPromise.then(function(levels) {
+          scope.levels = levels;
+        });
       });
       var removeLevels = function(level) {
         var levelLength = scope.levels.length;
         for(var i=0;i<levelLength;i++) {
-          if(scope.levels[i] == level) {
+          if(scope.levels[i].name == level) {
             return scope.levels.slice(i);
           }
         }
@@ -29,7 +34,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
           var cutElements = cut.split(":");
           var include = true;
           for(var j=0;j<levelLength;j++) {
-            if(cutElements[0] == babbageCtrl.getDimensionKey(levels[j])) {
+            if(cutElements[0] == babbageCtrl.getDimensionKey(levels[j].name)) {
               include = false;
             }
           }
@@ -56,24 +61,75 @@ demo.directive('treemapBreadcrumb', ['$rootScope', function($rootScope) {
         state.tile = [name];
         babbageCtrl.setState(state);
       };
-      var getLevels = function(hierarchies) {
-        var state = babbageCtrl.getState();
-        for(var name in hierarchies) {
-          var hierarchy = hierarchies[name];
-          var levels = hierarchy.levels;
-          var levelLength = levels.length;
-          var prevs = [name];
-          for(var i=0;i<levelLength;i++) {
-            prevs.push(levels[i]);
-            if(state.tile[0] == levels[i]) {
-              return prevs;
-            }
+      function labelForKey(data, keyRef, labelRef, value) {
+        for(var i=0;i<data.length;i++) {
+          if(data[i][keyRef] == value) {
+            return data[i][labelRef];
           }
         }
-        return [state.tile[0]];
+      }
+      function dimensionLabel(name) {
+        return dimensions[name].label;
+      }
+      function getCutObj(cuts) {
+        var cutObj = {};
+        for(var k=0;k<cuts.length;k++) {
+          var cut = cuts[k].split(":");
+          cutObj[cut[0]] = cut[1];
+        }
+        return cutObj;
+      }
+      function isCurrentLevel(tile, level) {
+        return tile == level;
+      }
+      function collectDimensionPromises(names) {
+        var promises = [];
+        for(var i=0;i<names.length;i++) {
+          promises.push(babbageCtrl.getDimensionMembers(names[i]));
+        }
+        return promises;
+      }
+      function findParents(tile, hierarchies) {
+        for(var name in hierarchies) {
+          var levels = hierarchies[name].levels;
+          var levelLength = levels.length;
+          var names = [name];
+          for(var i=0;i<levelLength;i++) {
+            if(isCurrentLevel(tile,levels[i])) {
+              return names;
+            }
+            names.push(levels[i]);
+          }
+        }
+      }
+      var getLevels = function(dimensions) {
+        var deferred = $q.defer();
+        var state = babbageCtrl.getState();
+        var currentParents = findParents(state.tile[0], state.hierarchies);
+        if(currentParents && currentParents.length > 0) {
+          var mainHierarchy = currentParents[0];
+          var levels = [mainHierarchy].concat(state.hierarchies[mainHierarchy].levels);
+          var newLevels = [{name: mainHierarchy, label: dimensionLabel(mainHierarchy), parent_cut: dimensionLabel(mainHierarchy)}];
+          $q.all(collectDimensionPromises(currentParents)).then(function(results) {
+            var state = babbageCtrl.getState();
+            var cuts = getCutObj(state.cut);
+            for(var j=0;j<results.length;j++) {
+              var result = results[j];
+              var parentName = levels[j];
+              var name = levels[j+1];
+              var keyRef = dimensions[parentName].key_ref;
+              var labelRef = dimensions[parentName].label_ref;
+              var value = cuts[keyRef];
+              newLevels.push({name: name, label: dimensionLabel(name), parent_cut: labelForKey(result.data.data, keyRef, labelRef, value)});
+            }
+            deferred.resolve(newLevels);
+          });
+        }else {
+          deferred.resolve([{ name: state.tile[0], label: dimensionLabel( state.tile[0] ), parent_cut: dimensionLabel( state.tile[0] ) }]);
+        }
+        return deferred.promise;
       };
       var state = babbageCtrl.getState();
-      scope.levels = getLevels(state.hierarchies);
     }
   };
 }]);
