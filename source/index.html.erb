@@ -13,15 +13,21 @@ title: Haushalt Berlin
         </div>
       </div>
       <div class='filter'>
-        <h4>Anzeigen nach</h4>
-        <div class='filter-element'>
-          <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
-        </div>
-      </div>
-      <div class='filter'>
         <h4>Typ</h4>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
+        </div>
+      </div>
+      <div class='filter'>
+        <h4>Bereich</h4>
+        <div class='filter-element'>
+          <babbage-cut-filter type='dropdown' filter="typ" selected="Alle" default-cut="defaultCut"></babbage-cut-filter>
+        </div>
+      </div>
+      <div class='filter'>
+        <h4>Anzeigen nach</h4>
+        <div class='filter-element'>
+          <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
         </div>
       </div>
       <div class='filter'>

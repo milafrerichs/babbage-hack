@@ -35,7 +35,7 @@ demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
             }
           }
         }
-      }
+      };
       var findCutPosition = function(attrId) {
         var cutLength = scope.defaultCut.length;
         for(var i=0;i<cutLength;i++) {
@@ -44,21 +44,30 @@ demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
           if(cut[0] == attr[0]) { return i; }
         }
         return -1;
-      }
+      };
+      var cutIsSet = function(cut) {
+        return cut.search(/[:]/) !== -1;
+      };
       var setNewCut = function(attrId) {
         var pos = findCutPosition(attrId);
         if(pos !== -1) {
-           scope.defaultCut[pos] = attrId;
+          if(cutIsSet(attrId)) {
+            scope.defaultCut[pos] = attrId;
+          }else {
+            scope.defaultCut.splice(pos,1);
+          }
+        } else {
+          scope.defaultCut.push(attrId);
         }
         return scope.defaultCut;
-      }
+      };
       scope.update = function(attr) {
         var state = babbageCtrl.getState();
         state.cut = setNewCut(attr.id);
         state.tile = [getParentTile(state.tile[0])];
         scope.selected = attr.label;
         babbageCtrl.setState(state);
-      }
+      };
     }
-  }
+  };
 }]);
