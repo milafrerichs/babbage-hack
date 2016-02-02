@@ -62,7 +62,7 @@ demo.controller('DemoCtrl', function ($scope) {
   };
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'titelart:Einnahmetitel'},{label: 'Ausgaben', id: 'titelart:Ausgabetitel'}];
   $scope.jahr = [{label: '2016', id: 'jahr:2016'},{label: '2017', id: 'jahr:2017'}];
-  $scope.typ = [{label: 'Alle', id: 'typ.bezeichnung'},{label: 'Bezirke', id: 'typ.bezeichnung:Bezirke'},{label: 'Senatsverwaltungen', id: 'typ.bezeichnung:Senatsverwaltungen'}, {label: 'Verfassungsorgane', id: 'typ.bezeichnung:Verfassungsorgane'}];
+  $scope.typ = [{label: 'Alle', id: 'typ.bezeichnung|bereich.bereichsbezeichnung'},{label: 'Senatsverwaltungen', id: 'bereich.bereichsbezeichnung|typ.bezeichnung:Senatsverwaltungen'}, {label: 'Verfassungsorgane', id: 'bereich.bereichsbezeichnung|typ.bezeichnung:Verfassungsorgane'}, {label: 'Alle Bezirke', id: 'bereich.bereichsbezeichnung|typ.bezeichnung:Bezirke'} , {label: 'Bezirke', type: 'header'}, { label: 'Charlottenburg-Wilmersdorf', type: 'sub', id: 'typ.bezeichnung|bereich.bereichsbezeichnung:Charlottenburg-Wilmersdorf'}];
   $scope.anzeige = [{id: 'hauptgruppe', label: 'Gruppe' }, {id: 'hauptfunktion', label: 'Politikfelder'}, {id: 'einzelplan', label: 'Einzelplan'}];
 
   $scope.showTooltip = true;

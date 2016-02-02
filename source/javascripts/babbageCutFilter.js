@@ -14,6 +14,9 @@ demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
         if(tAttrs.type === 'dropdown') {
           return 'budget-templates/cut-filter-dropdown.html';
         }
+        if(tAttrs.type === 'dropdown-sub') {
+          return 'budget-templates/cut-filter-dropdown-sub.html';
+        }
       } else {
         return 'budget-templates/cut-filter.html';
       }
@@ -48,16 +51,37 @@ demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
       var cutIsSet = function(cut) {
         return cut.search(/[:]/) !== -1;
       };
-      var setNewCut = function(attrId) {
-        var pos = findCutPosition(attrId);
+      var multipleCuts = function(cut) {
+        return cut.search(/[|]/) !== -1;
+      };
+      var changeOrRemove = function(cut, pos) {
+        if(cutIsSet(cut)) {
+          scope.defaultCut[pos] = cut;
+        }else {
+          scope.defaultCut.splice(pos,1);
+        }
+      };
+      var setMultipleCuts = function(cut) {
+        var cuts = cut.split("|");
+        for(var i=0;i<cuts.length;i++) {
+          changeOrAddCut(cuts[i]);
+        }
+      };
+      var changeOrAddCut = function(cut) {
+        var pos = findCutPosition(cut);
         if(pos !== -1) {
-          if(cutIsSet(attrId)) {
-            scope.defaultCut[pos] = attrId;
-          }else {
-            scope.defaultCut.splice(pos,1);
-          }
+          changeOrRemove(cut, pos);
         } else {
-          scope.defaultCut.push(attrId);
+          if(cutIsSet(cut)) {
+            scope.defaultCut.push(cut);
+          }
+        }
+      };
+      var setNewCut = function(attrId) {
+        if(multipleCuts(attrId)) {
+          setMultipleCuts(attrId);
+        }else {
+          changeOrAddCut(attrId);
         }
         return scope.defaultCut;
       };
