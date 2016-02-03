@@ -1,5 +1,6 @@
 var demo = angular.module('demo', ['ngRoute', 'ngBabbage', 'angular.filter', 'ui.bootstrap', 'ui.select', 'budget.templates']);
 
+
 d3.locale.de_DE = d3.locale({
   decimal: ",",
   thousands: ".",
@@ -17,6 +18,11 @@ d3.locale.de_DE = d3.locale({
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 
+ngBabbageGlobals.keyFormat = function(text, key) {
+  var s = "000000000" + text;
+  return s.substr(s.length-numberOfLeadingZeros(key));
+};
+
 truncate = function(name, maxlen, repl) {
   maxlen = maxlen || 30;
   repl = repl || '...';
@@ -25,16 +31,35 @@ truncate = function(name, maxlen, repl) {
   }
   return name;
 };
-treemapNameFunc = function(cell, ref, model) {
-  return  truncate(cell[model.dimensions[ref].label_ref] + ' ('+cell[model.dimensions[ref].key_ref]+')');
+findKey = function(d) {
+  var keyValue = d._key;
+  for(var name in d) {
+    if(d[name] == keyValue) return name;
+  }
 };
-ngBabbageGlobals.treemapNameFunc = treemapNameFunc;
+leadingZeros = function(d, text) {
+  var s = "000000000" + text;
+  return s.substr(s.length-numberOfLeadingZeros(findKey(d)));
+};
+numberOfLeadingZeros = function(key) {
+  switch(key) {
+    case 'gruppe.gruppe' : return 3;
+    case 'obergruppe.obergruppe' : return 2;
+    case 'hauptgruppe.hauptgruppe': return 1;
+    case 'einzelplan.einzelplan': return 2;
+    case 'kapitel.kapitel': return 4;
+    case 'titel.titel': return 5;
+    case 'hauptfunktion.hauptfunktion': return 1;
+    case 'oberfunktion.oberfunktion': return 2;
+    case 'funktion.funktion': return 3;
+  }
+};
 
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if (d._percentage < 0.02) {
     return '';
   }
-  return d.children ? null : truncate(d._name + ' (' + d._key + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+  return d.children ? null : truncate(d._name + ' (' + leadingZeros(d,d._key) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {
