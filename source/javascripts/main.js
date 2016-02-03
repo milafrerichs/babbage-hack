@@ -18,6 +18,11 @@ d3.locale.de_DE = d3.locale({
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 
+ngBabbageGlobals.keyFormat = function(text, key) {
+  var s = "000000000" + text;
+  return s.substr(s.length-numberOfLeadingZeros(key));
+};
+
 truncate = function(name, maxlen, repl) {
   maxlen = maxlen || 30;
   repl = repl || '...';
