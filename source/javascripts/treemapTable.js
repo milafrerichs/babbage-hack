@@ -57,7 +57,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 
         q.order = order;
         q.page = 0;
-        q.pagesize = 50;
+        q.pagesize = 500;
 
         scope.cutoffWarning = false;
         scope.queryLoaded = true;
