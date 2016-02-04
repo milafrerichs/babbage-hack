@@ -20,7 +20,7 @@ ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 
 ngBabbageGlobals.keyFormat = function(text, key) {
   var s = "000000000" + text;
-  return s.substr(s.length-numberOfLeadingZeros(key));
+  return addSpacingToKey(s.substr(s.length-numberOfLeadingZeros(key)));
 };
 
 ngBabbageGlobals.categoryColors = [
@@ -62,12 +62,16 @@ numberOfLeadingZeros = function(key) {
     case 'funktion.funktion': return 3;
   }
 };
-
+addSpacingToKey = function(text) {
+  var position = 3;
+  if(text.length <= position) { return text; }
+  return [text.slice(0, position), " ", text.slice(position)].join('');
+}
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if (d._percentage < 0.02) {
     return '';
   }
-  return d.children ? null : truncate(d._name + ' (' + leadingZeros(d,d._key) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+  return d.children ? null : truncate(d._name + ' (' + addSpacingToKey(leadingZeros(d,d._key)) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {
