@@ -101,7 +101,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.showTooltip = true;
   $scope.showTableKey = true;
   $scope.tooltipContent = function(d) {
-    return "<b>" + d._name + ":</b> <br/>" + d._area_fmt + " (" + percentFormat(d._percentage) + ")";
+    return "<b>" + d._name + " ("+ leadingZeros(d, d._key)+"):</b> <br/>" + d._area_fmt + " (" + percentFormat(d._percentage) + ")";
   };
 
   $scope.setTile = function(tile) {
