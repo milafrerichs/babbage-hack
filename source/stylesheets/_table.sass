@@ -1,5 +1,7 @@
+$caret_color_not_sorted: #888
 $table_body_height: 300px
 $table_width: 100%
+
 .fixed-table-container
   width: 100%
   height: $table_body_height
@@ -19,19 +21,38 @@ table.treemap-table
   .betrag
     width: 18%
   .color
-    padding: 0
     width: 2%
   .key
-    padding: 0
     width: 8%
   .caret
-    display: none
     float: right
+    width: 0
+    height: 0
+    border: 4px solid transparent
+    border-bottom: 7px solid $caret_color_not_sorted
+    position: relative
+    top: -2px
+    left: 3px
+    &:after
+      content: ''
+      position: absolute
+      left: -4px
+      top: 8px
+      width: 0
+      height: 0
+      border: 4px solid transparent
+      border-top: 7px solid $caret_color_not_sorted
   .sort
     .caret
       display: block
-      margin-top: 7px
+      margin-top: 10px
+      border: none
+      border-top: 7px dashed
+      border-right: 4px solid transparent
+      border-left: 4px solid transparent
+      &:after
+        border: none
     &.asc
       .caret
-        border-bottom: 4px dashed
+        border-bottom: 7px dashed
         border-top: none
