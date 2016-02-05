@@ -1,7 +1,18 @@
+$table_body_height: 300px
+$table_width: 100%
+.fixed-table-container
+  width: 100%
+  height: $table_body_height
+  position: relative
+  overflow-x: hidden
+  overflow-y: auto
+
 table.treemap-table
   background: #fff
   text-align: left
   table-layout: fixed
+  margin-bottom: 0
+  width: 100%
   .num
     text-align: right
     width: 10%
@@ -24,4 +35,3 @@ table.treemap-table
       .caret
         border-bottom: 4px dashed
         border-top: none
-
