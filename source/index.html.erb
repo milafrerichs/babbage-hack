@@ -3,37 +3,40 @@ title: Haushalt Rheinland-Pfalz
 ---
 <div ng-controller="DemoCtrl">
   <babbage endpoint="http://52.23.213.247/api/babbage" cube="rheinland-pfalz" state="state">
-    <div class='dimension-filters'>
-      <p class="explanation">
-      </p>
-      <div class='filter'>
-        <h4>Haushaltsjahr</h4>
-        <div class='filter-element'>
-          <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
+    <div id='fixedheader'>
+      <div class='dimension-filters'>
+        <p class="explanation">
+        </p>
+        <div class='filter'>
+          <h6>Haushaltsjahr</h6>
+          <div class='filter-element'>
+            <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
+          </div>
+        </div>
+        <div class='filter'>
+          <h6>Anzeigen nach</h6>
+          <div class='filter-element'>
+            <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
+          </div>
+        </div>
+        <div class='filter'>
+          <h6>Typ</h6>
+          <div class='filter-element'>
+            <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
+          </div>
+        </div>
+        <div class='filter'>
+          <h6>&nbsp;</h6>
+          <div class='filter-element'>
+            <babbage-refresh hierarchies="state.hierarchies">
+              <a class="btn btn-default" ng-click="update();"><i class="fa fa-refresh"></i></a>
+            </babbage-refresh>
+          </div>
         </div>
       </div>
-      <div class='filter'>
-        <h4>Anzeigen nach</h4>
-        <div class='filter-element'>
-          <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
-        </div>
-      </div>
-      <div class='filter'>
-        <h4>Typ</h4>
-        <div class='filter-element'>
-          <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
-        </div>
-      </div>
-      <div class='filter'>
-        <h4>&nbsp;</h4>
-        <div class='filter-element'>
-          <babbage-refresh hierarchies="state.hierarchies">
-            <a class="btn btn-default" ng-click="update();"><i class="fa fa-refresh"></i></a>
-          </babbage-refresh>
-        </div>
-      </div>
+      <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
+      <hr />
     </div>
-    <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
     <babbage-treemap show-tooltip=true tooltip-content="tooltipContent(d)"></babbage-treemap>
     <div class="fixed-table-container">
       <treemap-table show-key="showTableKey"></treemap-table>
