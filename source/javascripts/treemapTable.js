@@ -76,8 +76,8 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         areaRef = areaRef ? [areaRef] : defaultArea(model);
 
         scope.rows = [];
+        scope.nameTitle = scope.showKey ? model.dimensions[tileRef].label_attribute : model.dimensions[tileRef].label;
         scope.keyTitle = model.dimensions[tileRef].label;
-        scope.nameTitle = model.dimensions[tileRef].label_attribute;
         for (var i in data.cells) {
           var cell = data.cells[i];
           cell.value_fmt = ngBabbageGlobals.numberFormat(Math.round(cell[areaRef]));
