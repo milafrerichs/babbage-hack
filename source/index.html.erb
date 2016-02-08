@@ -7,25 +7,25 @@ title: Haushalt Rheinland-Pfalz
       <p class="explanation">
       </p>
       <div class='filter'>
-        <h4>Haushaltsjahr</h4>
+        <h6>Haushaltsjahr</h6>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>
-        <h4>Anzeigen nach</h4>
+        <h6>Anzeigen nach</h6>
         <div class='filter-element'>
           <dimension-filter type='dropdown' filter='anzeige' selected="Einzelplan" default-cut='defaultCut'></dimension-filter>
         </div>
       </div>
       <div class='filter'>
-        <h4>Typ</h4>
+        <h6>Typ</h6>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>
-        <h4>&nbsp;</h4>
+        <h6>&nbsp;</h6>
         <div class='filter-element'>
           <babbage-refresh hierarchies="state.hierarchies">
             <a class="btn btn-default" ng-click="update();"><i class="fa fa-refresh"></i></a>
@@ -34,6 +34,7 @@ title: Haushalt Rheinland-Pfalz
       </div>
     </div>
     <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
+    <hr />
     <babbage-treemap show-tooltip=true tooltip-content="tooltipContent(d)"></babbage-treemap>
     <div class="fixed-table-container">
       <treemap-table show-key="showTableKey"></treemap-table>
