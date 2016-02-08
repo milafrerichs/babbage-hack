@@ -63,8 +63,12 @@ numberOfLeadingZeros = function(key) {
   }
 };
 addSpacingToKey = function(text) {
-  var position = 3;
+  var position = 3,
+      kapitelLength = 4;
   if(text.length <= position) { return text; }
+  if(text.length === kapitelLength) {
+    return [text.slice(0, 1), " ", text.slice(1)].join('');
+  }
   return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
