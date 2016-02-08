@@ -57,12 +57,12 @@ hr {
 
 .breadcrumb {
   background-color: #871D33; }
-  
+
 .breadcrumb a {
 padding: 6px;
 border-radius: 4px; }
   
-.breadcrumb a:visited, .breadcrumb a:link {
+.breadcrumb a:visited, .breadcrumb a:link, .breadcrumb > li + li::before {
   color: #ffffff;
   text-decoration: none; }
   
