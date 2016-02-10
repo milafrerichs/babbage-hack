@@ -6,13 +6,26 @@ $table_width: 100%
   width: 100%
   height: $table_body_height
   position: relative
-  overflow-x: hidden
-  overflow-y: auto
+  padding-top: 30px
+  .header-background
+    background-color: #fff
+    border-bottom: 1px solid #ccc
+    height: 30px
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+  .fixed-table-container-inner
+    overflow-x: hidden
+    overflow-y: auto
+    height: 100%
 
 table.treemap-table
+  width: 100%
+  overflow-x: hidden
+  overflow-y: auto
   background: #fff
   text-align: left
-  table-layout: fixed
   margin-bottom: 0
   width: 100%
   &.last
@@ -20,15 +33,26 @@ table.treemap-table
       a
         text-decoration: none
         cursor: default
-  th
-    text-transform: capitalize
-    .sort-container
-      display: inline
+  thead
+    th
+      text-transform: capitalize
+      padding: 0 5px
+      border-bottom: none
+      .th-inner
+        position: absolute
+        top: 0
+        line-height: 30px
+      .sort-container
+        display: inline
   .num
     text-align: right
     width: 10%
+    .th-inner
+      padding-left: 3%
   .betrag
     width: 18%
+    .th-inner
+      padding-left: 10%
   .color
     padding: 5px 0 5px 5px
   .key
