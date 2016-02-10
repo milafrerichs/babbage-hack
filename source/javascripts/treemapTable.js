@@ -4,7 +4,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
     replace: true,
     require: '^babbage',
     scope: { showKey: '=?' },
-    template: '<table class="treemap-table table table-condensed"><thead> <tr> <th></th><th ng-show="showKey" ng-click="sort(\'key\');" ng-class="{ sort: activeOrder(\'key\') }">#</th> <th ng-click="sort(\'name\')" ng-class="{ sort: activeOrder(\'name\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">{{nameTitle}}<span class="caret"></span></th> <th class="num betrag" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">Betrag<span class="caret"></span></th> <th class="num" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}">Anteil<span class="caret"></span></th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td> <i ng-style="{color: row.color};" class="fa fa-square"></i></td><td ng-show="showKey"> {{row.key}} </td><td><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th> Summe </th> <th></th><th ng-show="showKey"></th><th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
+    template: '<table class="treemap-table table table-condensed" ng-class="{last: lastLevel}"><thead> <tr> <th class="key" ng-show="showKey" colspan="2" ng-click="sort(\'key\');" ng-class="{ sort: activeOrder(\'key\') }"><div class="th-inner">{{keyTitle}} <div class="sort-container"><span class="caret"></span></div></div></th> <th ng-click="sort(\'name\')" ng-class="{ sort: activeOrder(\'name\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}"><div class="th-inner">{{nameTitle}}<div class="sort-container"><span class="caret"></span></div></div></th> <th class="num betrag" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}"><div class="th-inner">Betrag<div class="sort-container"><span class="caret"></span></div></div></th> <th class="num" ng-click="sort(\'value\')" ng-class="{ sort: activeOrder(\'value\'), asc: activeDirection(\'asc\'), desc: activeDirection(\'desc\')}"><div class="th-inner">Anteil<div class="sort-container"><span class="caret"></span></div></div></th> </tr></thead><tbody> <tr ng-repeat="row in rows"> <td class="color"> <i ng-style="{color: row.color};" class="fa fa-square"></i></td><td class="key" ng-show="showKey"> {{row.key}} </td><td><a href ng-click="setTile(row);"> {{row.name}} </a></td> <td class="num">{{row.value_fmt}}</td> <td class="num">{{row.percentage}}</td> </tr> </tbody><tfoot><tr> <th colspan="2"> Summe </th> <th ng-show="showKey"></th><th class="num">{{summary.value_fmt}}</th> <th class="num">100%</th> </tr></tfoot></table>',
     link: function(scope, element, attrs, babbageCtrl) {
       var orderKeys = {};
       scope.showKey = angular.isDefined(scope.showKey) ? scope.showKey: false;
@@ -57,7 +57,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 
         q.order = order;
         q.page = 0;
-        q.pagesize = 50;
+        q.pagesize = 500;
 
         scope.cutoffWarning = false;
         scope.queryLoaded = true;
@@ -76,12 +76,13 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         areaRef = areaRef ? [areaRef] : defaultArea(model);
 
         scope.rows = [];
-        scope.nameTitle = model.dimensions[tileRef].label;
+        scope.nameTitle = scope.showKey ? model.dimensions[tileRef].label_attribute : model.dimensions[tileRef].label;
+        scope.keyTitle = model.dimensions[tileRef].label;
         for (var i in data.cells) {
           var cell = data.cells[i];
           cell.value_fmt = ngBabbageGlobals.numberFormat(Math.round(cell[areaRef]));
           cell.name = cell[model.dimensions[tileRef].label_ref];
-          cell.key = cell[model.dimensions[tileRef].key_ref];
+          cell.key = ngBabbageGlobals.keyFormat(cell[model.dimensions[tileRef].key_ref], model.dimensions[tileRef].key_ref);
           cell.color = ngBabbageGlobals.colorScale(i);
 					cell.percentage = percentFormat(cell[areaRef] / Math.max(data.summary[areaRef], 1));
           scope.rows.push(cell);
@@ -90,6 +91,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
         query(model, state);
+        scope.lastLevel = babbageCtrl.getNextHierarchyLevel() ? false : true;
       });
     scope.sort = function(order) {
       scope.direction = scope.direction.reverse();

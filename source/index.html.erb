@@ -7,19 +7,19 @@ title: Haushalt Berlin
       <p class="explanation">
       </p>
       <div class='filter'>
-        <h4>Haushaltsjahr</h4>
+        <h6>Haushaltsjahr</h6>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>
-        <h4>Typ</h4>
+        <h6>Typ</h6>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown' filter="einahmenausgaben" selected="Ausgaben" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>
-        <h4>Bereich</h4>
+        <h6>Bereich</h6>
         <div class='filter-element'>
           <babbage-cut-filter type='dropdown-sub' filter="typ" selected="Alle" default-cut="defaultCut"></babbage-cut-filter>
         </div>
@@ -31,17 +31,23 @@ title: Haushalt Berlin
         </div>
       </div>
       <div class='filter'>
-        <h4>&nbsp;</h4>
+        <h6>&nbsp;</h6>
         <div class='filter-element'>
-          <babbage-refresh>
+          <babbage-refresh hierarchies="state.hierarchies">
             <a class="btn btn-default" ng-click="update();"><i class="fa fa-refresh"></i></a>
           </babbage-refresh>
         </div>
       </div>
     </div>
     <treemap-breadcrumb reset='reset' state='state'></treemap-breadcrumb>
+    <hr />
     <babbage-treemap show-tooltip=true tooltip-content="tooltipContent(d)"></babbage-treemap>
-    <treemap-table></treemap-table>
+    <div class="fixed-table-container">
+      <div class="header-background"></div>
+      <div class="fixed-table-container-inner">
+        <treemap-table></treemap-table>
+      </div>
+    </div>
   </babbage>
 </div>
 <div id="tooltip"></div>
