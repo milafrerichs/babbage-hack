@@ -4,7 +4,8 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
     replace: true,
     require: '^babbage',
     scope: {
-      showCut: '='
+      showCut: '=',
+      showKeyValue: '='
     },
     templateUrl: 'budget-templates/breadcrumb.html',
     link: function(scope, element, attrs, babbageCtrl) {
@@ -109,7 +110,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
         if(currentParents && currentParents.length > 0) {
           var mainHierarchy = currentParents[0];
           var levels = [mainHierarchy].concat(state.hierarchies[mainHierarchy].levels);
-          var newLevels = [{name: mainHierarchy, label: dimensionLabel(mainHierarchy), parent_cut: dimensionLabel(mainHierarchy)}];
+          var newLevels = [{name: mainHierarchy, label: dimensionLabel(mainHierarchy), parent_cut: dimensionLabel(mainHierarchy), keyValue: "" }];
           $q.all(collectDimensionPromises(currentParents)).then(function(results) {
             var state = babbageCtrl.getState();
             var cuts = getCutObj(state.cut);
@@ -120,12 +121,12 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
               var keyRef = dimensions[parentName].key_ref;
               var labelRef = dimensions[parentName].label_ref;
               var value = cuts[keyRef];
-              newLevels.push({name: name, label: dimensionLabel(name), parent_cut: labelForKey(result.data.data, keyRef, labelRef, value)});
+              newLevels.push({name: name, label: dimensionLabel(name), parent_cut: labelForKey(result.data.data, keyRef, labelRef, value), keyValue: ngBabbageGlobals.keyFormat(value , keyRef)});
             }
             deferred.resolve(newLevels);
           });
         }else {
-          deferred.resolve([{ name: state.tile[0], label: dimensionLabel( state.tile[0] ), parent_cut: dimensionLabel( state.tile[0] ) }]);
+          deferred.resolve([{ name: state.tile[0], label: dimensionLabel( state.tile[0] ), parent_cut: dimensionLabel( state.tile[0] ), keyValue: ""  }]);
         }
         return deferred.promise;
       };
