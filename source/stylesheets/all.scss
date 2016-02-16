@@ -6,6 +6,10 @@
 @charset "utf-8";
 
 @import "mixins";
+@import "typography";
+@import "buttons";
+@import "breadcrumb-rp";
+@import "table-rp";
 @import "filter";
 @import "table";
 @import "breadcrumb";
@@ -19,75 +23,10 @@ body {
   font-family: Arial, sans-serif;
   font-size: 14px; }
 
-h1 {
-  color: rgba(0, 0, 0, .3);
-  font-weight: bold;
-  font-size: 32px;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-  background: url("../images/middleman.png") no-repeat center 100px;
-  padding: 350px 0 10px;
-  margin: 0; }
-  
-h2 {
-  font-weight: bold;
-  font-size: 28px; }
-  
-h3 {
-  font-weight: bold;
-  font-size: 24px; }
-  
-h4 {
-  font-weight: bold;
-  font-size: 20px; }
-  
-h5 {
-  font-weight: bold;
-  font-size: 17px; }
-  
-h6 {
-  font-weight: bold;
-  font-size: 14px; 
-  text-align: left; }
-  
 hr {
   height: 1px;
   background: #C6C6C6; }
 
-.breadcrumb {
-  background-color: #871D33; }
-
-.breadcrumb a {
-padding: 6px;
-border-radius: 4px; }
-  
-.breadcrumb a:visited, .breadcrumb a:link, .breadcrumb > li + li::before {
-  color: #ffffff;
-  text-decoration: none; }
-  
-.breadcrumb a:active, .breadcrumb a:hover {
-  color: #871D33;
-  background: #ffffff;
-  text-decoration: none; }
-  
-.treemap-table a:link, .treemap-table a:visited, .treemap-table a:hover, .treemap-table a:active {
-  color: #4a4a4a;
-  text-decoration: underline;
-}
-
-.treemap-table a:hover, .treemap-table a:active {
-  text-decoration: none;
-}
-
-.btn-default {
-  color: #666666;
-  background-color: #EEEEEE;
-  border-color:  #C6C6C6; }
-
-.btn {
-  border: 1px solid #C6C6C6;
-  border-radius: 4px; }
 
 .doc {
   font-size: 14px;
@@ -103,27 +42,3 @@ border-radius: 4px; }
     color: rgba(0, 0, 0, 0.3); }
     .doc a:hover {
       color: #666; }
-
-.welcome {
-  -webkit-animation-name: welcome;
-  -webkit-animation-duration: .9s; }
-
-@-webkit-keyframes welcome {
-  from {
-    -webkit-transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-   -webkit-transform: scale(0);
-   opacity: 0;
-  }
-  82.5% {
-    -webkit-transform: scale(1.03);
-    -webkit-animation-timing-function: ease-out;
-    opacity: 1;
-  }
-  to {
-    -webkit-transform: scale(1);
-  }
-}
-
