@@ -110,7 +110,9 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.showTableKey = true;
   $scope.showKeyValue = true;
   $scope.tooltipContent = function(d) {
-    return "<b>" + d._name + " ("+ addSpacingToKey(leadingZeros(d, d._key))+"):</b> <br/>" + d._area_fmt + " (" + percentFormat(d._percentage) + ")";
+    if(d._name) {
+      return "<b>" + d._name + " ("+ addSpacingToKey(leadingZeros(d, d._key))+"):</b> <br/>" + d._area_fmt + " (" + percentFormat(d._percentage) + ")";
+    }
   };
 
   $scope.setTile = function(tile) {
