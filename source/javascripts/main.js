@@ -17,6 +17,7 @@ d3.locale.de_DE = d3.locale({
 });
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
+ngBabbageGlobals.otherName = "Sonstiges";
 
 ngBabbageGlobals.keyFormat = function(text, key) {
   var s = "000000000" + text;
@@ -29,8 +30,13 @@ ngBabbageGlobals.categoryColors = [
     "#CF3D1E", "#F15623", "#F68B1F", "#FFC60B", "#DFCE21",
     "#6E3F7C", "#6A246D", "#8A4873", "#EB0080", "#EF58A0", "#C05A89"
     ];
-ngBabbageGlobals.colorScale = d3.scale.ordinal().range(ngBabbageGlobals.categoryColors);
-
+colorScale = d3.scale.ordinal().range(ngBabbageGlobals.categoryColors);
+ngBabbageGlobals.colorScale = function(d) {
+  if(d > 24) {
+    return "#cccccc";
+  }
+  return colorScale(d);
+};
 truncate = function(name, maxlen, repl) {
   maxlen = maxlen || 30;
   repl = repl || '...';
@@ -46,6 +52,7 @@ findKey = function(d) {
   }
 };
 leadingZeros = function(d, text) {
+  if(d._name == "Sonstiges") { return ""; }
   var s = "000000000" + text;
   return s.substr(s.length-numberOfLeadingZeros(findKey(d)));
 };
