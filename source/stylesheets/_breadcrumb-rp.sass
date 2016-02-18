@@ -1,16 +1,17 @@
-.breadcrumb
-  background-color: #666
+.rp
+  .breadcrumb
+    background-color: #666
+    a
+      padding: 6px
+      border-radius: 4px
+      &:visited, &:link
+        color: #ffffff
+        text-decoration: none
+      &:active, &:hover
+        color: #871D33
+        background: #ffffff
+        text-decoration: none
 
-.breadcrumb a
-  padding: 6px
-  border-radius: 4px
-
-.breadcrumb a:visited, .breadcrumb a:link, .breadcrumb > li + li::before
-  color: #ffffff
-  text-decoration: none
-
-.breadcrumb a:active, .breadcrumb a:hover
-  color: #871D33
-  background: #ffffff
-  text-decoration: none
-
+    > li + li:before
+      color: #ffffff
+      text-decoration: none
