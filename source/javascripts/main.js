@@ -111,7 +111,7 @@ demo.controller('DemoCtrl', function ($scope) {
   };
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
   $scope.jahr = [{label: '2016', id: 'jahr'}];
-  $scope.anzeige = [{id: 'einzelplan', label: 'Einzelplan'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppe' }];
+  $scope.anzeige = [{id: 'einzelplan', label: 'Einzelpläne'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppen' }];
 
   $scope.showTooltip = true;
   $scope.showTableKey = true;
