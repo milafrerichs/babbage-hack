@@ -17,7 +17,8 @@ d3.locale.de_DE = d3.locale({
 });
 
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
-ngBabbageGlobals.otherName = "Sonstiges";
+ngBabbageGlobals.otherName = "Summe Sonstige";
+ngBabbageGlobals.otherKey = "-";
 
 ngBabbageGlobals.keyFormat = function(text, key) {
   var s = "000000000" + text;
@@ -52,7 +53,7 @@ findKey = function(d) {
   }
 };
 leadingZeros = function(d, text) {
-  if(d._name == "Sonstiges") { return ""; }
+  if(d._name == ngBabbageGlobals.otherName) { return text; }
   var s = "000000000" + text;
   return s.substr(s.length-numberOfLeadingZeros(findKey(d)));
 };
