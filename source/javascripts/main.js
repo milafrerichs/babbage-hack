@@ -34,12 +34,12 @@ ngBabbageGlobals.categoryColors = [
     "#6E3F7C", "#6A246D", "#8A4873", "#EB0080", "#EF58A0", "#C05A89"
     ];
 colorScale = d3.scale.ordinal().range(ngBabbageGlobals.categoryColors);
-ngBabbageGlobals.colorScale = function(d) {
-  if(d > 24) {
-    return "#cccccc";
-  }
-  return colorScale(d);
+
+ngBabbageGlobals.colorScale = function(i) {
+  if(parseInt(i) > ngBabbageGlobals.pageSize) { return "#ccc"; }
+  return colorScale(i);
 };
+
 truncate = function(name, maxlen, repl) {
   maxlen = maxlen || 30;
   repl = repl || '...';
