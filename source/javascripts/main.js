@@ -19,12 +19,14 @@ d3.locale.de_DE = d3.locale({
 ngBabbageGlobals.numberFormat = d3.locale.de_DE.numberFormat("$,.");
 ngBabbageGlobals.otherName = "Summe Sonstige";
 ngBabbageGlobals.otherKey = "-";
+ngBabbageGlobals.nullName = "Rundungsdifferenz";
+ngBabbageGlobals.nullKey = "-";
 
 ngBabbageGlobals.keyFormat = function(text, key) {
   var s = "000000000" + text;
   return addSpacingToKey(s.substr(s.length-numberOfLeadingZeros(key)));
 };
-
+ngBabbageGlobals.pageSize = 25;
 ngBabbageGlobals.categoryColors = [
     "#BCD631", "#95C93D", "#48B85C", "#00833D", "#00B48D",
     "#60C4B1", "#27C4F4", "#478DCB", "#3E67B1", "#4251A3", "#59449B",
@@ -54,6 +56,7 @@ findKey = function(d) {
 };
 leadingZeros = function(d, text) {
   if(d._name == ngBabbageGlobals.otherName) { return text; }
+  if(d._name == ngBabbageGlobals.nullName) { return text; }
   var s = "000000000" + text;
   return s.substr(s.length-numberOfLeadingZeros(findKey(d)));
 };
@@ -118,6 +121,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.showTableKey = true;
   $scope.showKeyValue = true;
   $scope.tooltipContent = function(d) {
+    if(d._name == ngBabbageGlobals.nullName) { return "<b> " + d._name; }
     if(d._name) {
       return "<b>" + d._name + " ("+ addSpacingToKey(leadingZeros(d, d._key))+"):</b> <br/>" + d._area_fmt + " (" + percentFormat(d._percentage) + ")";
     }
