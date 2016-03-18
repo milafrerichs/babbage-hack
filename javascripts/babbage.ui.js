@@ -1505,7 +1505,7 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       }
       if(!otherCell && smallAmountSum > oPointonePercent) {
         // if there is no Other Cell, create one and put all entires with are less than 0.1% of the sum into it, if the sum of it is above 0.01%
-        data.cells.push(createOtherCell(sum));
+        data.cells.push(createOtherCell(smallAmountSum));
       }
       var root = {
         children: []
