@@ -83,10 +83,10 @@ addSpacingToKey = function(text) {
   return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
-  if (d._percentage < 0.02) {
+  if (d.data._percentage < 0.02) {
     return '';
   }
-  return d.children ? null : truncate(d._name + ' (' + addSpacingToKey(leadingZeros(d,d._key)) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+  return d.children ? null : truncate(d.data._name + ' (' + addSpacingToKey(leadingZeros(d,d._key)) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {
