@@ -1,5 +1,4 @@
-var ngBabbageGlobals = ngBabbageGlobals || {}; ngBabbageGlobals.embedSite = "http://assets.pudo.org/libs/babbage.ui/0.1.7";angular.module('ngBabbage.templates', ['babbage-templates/babbage.html', 'babbage-templates/chart.html', 'babbage-templates/crosstab.html', 'babbage-templates/facts.html', 'babbage-templates/pager.html', 'babbage-templates/panel.html', 'babbage-templates/sankey.html', 'babbage-templates/treemap.html', 'babbage-templates/workspace.html']);
-
+var ngBabbageGlobals = ngBabbageGlobals || {}; ngBabbageGlobals.embedSite = "http://assets.pudo.org/libs/babbage.ui/0.1.7";angular.module('ngBabbage.templates', ['babbage-templates/babbage.html', 'babbage-templates/chart.html', 'babbage-templates/crosstab.html', 'babbage-templates/facts.html', 'babbage-templates/pager.html', 'babbage-templates/panel.html', 'babbage-templates/sankey.html', 'babbage-templates/treemap.html', 'babbage-templates/workspace.html']); 
 angular.module("babbage-templates/babbage.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("babbage-templates/babbage.html",
     "<div class=\"babbage-frame\" ng-transclude></div>");
@@ -76,7 +75,7 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
     return '';
   }
   return d.children ? null : '<span class="amount">' + d._area_fmt + '</span>' + d._name;
-}
+};
 
 ngBabbage.filter('numeric', function() {
   return function(val) {
@@ -1436,7 +1435,7 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
     var disregardNegative = function(number) {
       if(number < 1) { return 0; }
       return number;
-    }
+    };
     var buildTreemap = function(area) {
       var wrapper = element.querySelectorAll('.treemap-babbage')[0],
           size = babbageCtrl.size(wrapper, function(w) { 
@@ -1460,13 +1459,13 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       areaRef = areaRef ? [areaRef] : defaultArea(model);
 
       var createOtherCell = function(amount) {
-        var otherCell = { }
+        var otherCell = { };
         otherCell[areaRef] = amount;
         otherCell[model.dimensions[tileRef].label_ref] = ngBabbageGlobals.otherName || "Other";
         otherCell[model.dimensions[tileRef].key_ref] = ngBabbageGlobals.otherKey || "";
         otherCell.other = true;
         return otherCell;
-      }
+      };
       scope.queryLoaded = true;
       var dataLength = data.cells.length;
       var lastI = 1;
@@ -1523,7 +1522,7 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
         }
       }
       //create a rounding error cell to fill all remaining space, only helpful if there is too much space left, so that the last cell don't gets too big
-      var nullCell = { }
+      var nullCell = { };
       nullCell[areaRef] = 0;
       nullCell[model.dimensions[tileRef].label_ref] = ngBabbageGlobals.nullName || "Rounding Error";
       nullCell[model.dimensions[tileRef].key_ref] = ngBabbageGlobals.nullKey || "";
@@ -1654,19 +1653,19 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       var wrapper = element.querySelectorAll('.treemap-babbage')[0],
           size = babbageCtrl.size(wrapper, function(w) {
             return Math.ceil(w * 0.546); });
-      treemap.size([size.width, size.height])
+      treemap.size([size.width, size.height]);
 
       div = d3.select(wrapper).select("div")
         .style("position", "relative")
         .style("width", size.width + "px")
         .style("height", size.height + "px")
         .style("overflow", "hidden");
-    }
+    };
     scope.$on('$destroy', unsubscribe);
     w.bind('resize', function() {
         resize();
         babbageCtrl.update();
-    })
+    });
 
     var defaultArea = function(model) {
       for (var i in model.aggregates) {
