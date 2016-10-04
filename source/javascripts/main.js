@@ -40,7 +40,6 @@ ngBabbageGlobals.categoryColors = [
 colorScale = d3.scale.ordinal().range(ngBabbageGlobals.categoryColors);
 
 ngBabbageGlobals.colorScale = function(i) {
-  if(parseInt(i) > ngBabbageGlobals.pageSize) { return "#ccc"; }
   return colorScale(i);
 };
 
