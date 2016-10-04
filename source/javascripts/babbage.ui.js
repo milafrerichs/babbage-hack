@@ -1535,10 +1535,10 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       nullCell._color = "#ffffff";
 
       root.children.push(nullCell);
-      var rootTreemap= treemap(d3.hierarchy(root).sort(function(a, b) { 
-        return b.data[areaRef] - a.data[areaRef]; 
-      }).sum(function(d) { 
-          return disregardNegative(d[areaRef]); 
+      var rootTreemap= treemap(d3.hierarchy(root).sort(function(a, b) {
+        return b.data[areaRef] - a.data[areaRef];
+      }).sum(function(d) {
+          return disregardNegative(d[areaRef]);
       }));
       var nodes = div.selectAll(".node").data(rootTreemap.descendants());
       nodes.exit().remove();
@@ -1572,14 +1572,14 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
           })
           .on("click", setTile);
           if(navigator.appVersion.indexOf("MSIE")!=-1) {
-            node.style("background", function(d) { return d._color; })
+            node.style("background", function(d) { return d.data._color; });
           }else {
             node
             .transition()
             .duration(500)
             .delay(function(d, i) { return Math.min(i * 30, 1500); })
             .styleTween("background-color", function(d, i, a) {
-                        return(d.children ? null : d3.interpolate("#ffffff", d._color));
+                        return(d.children ? null : d3.interpolate("#ffffff", d.data._color));
             });
           }
 

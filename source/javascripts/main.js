@@ -86,7 +86,7 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if (d.data._percentage < 0.02) {
     return '';
   }
-  return d.children ? null : truncate(d.data._name + ' (' + addSpacingToKey(leadingZeros(d,d._key)) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+  return d.children ? null : truncate(d.data._name + ' (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')', 100) + '<span class="amount">' + d.data._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {
