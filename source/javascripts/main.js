@@ -87,6 +87,12 @@ addSpacingToKey = function(text) {
   return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
+  if(d.data._name == "Hochbaumaßnahmen und Wohnungsbauförderung") {
+    return 'Bau (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
+  if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
+    return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
   if (d.data._percentage < 0.02) {
     return '';
   }
