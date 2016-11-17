@@ -1558,7 +1558,7 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
               .style("top", style.top);
           })
           .on("mouseover", function(d) {
-            if(scope.showTooltip) {
+            if(scope.showTooltip && d.data._color) {
               d3.select(this).transition().duration(200)
                 .style({'background': d3.rgb(d.data._color).darker() });
               d3.select('#tooltip').html(scope.tooltipContent({d: d.data})).style("opacity", 1);
