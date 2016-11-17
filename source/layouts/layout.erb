@@ -9,7 +9,8 @@
     <!-- Use title if it's in the page YAML frontmatter -->
     <title><%= current_page.data.title || "The Middleman" %></title>
 
-    <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", "normalize", "all" %>
+    <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", "normalize", "all", media: 'screen' %>
+    <%= stylesheet_link_tag "print", media: "print" %>
     <%= javascript_include_tag  "all" %>
   </head>
 
