@@ -9,13 +9,14 @@
     <!-- Use title if it's in the page YAML frontmatter -->
     <title>Haushalt Rheinland-Pfalz</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="screen" /><link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" media="screen" /><link href="/stylesheets/all.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
     <script src="/javascripts/all.js" type="text/javascript"></script>
   </head>
 
   <body class="index" ng-app="demo">
     <div class="rp" ng-controller="DemoCtrl">
-  <babbage endpoint="http://db.offenerhaushalt.de/api/babbage/" cube="rheinland-pfalz-haushalt" state="state">
+  <babbage endpoint="https://db.offenerhaushalt.de/api/babbage/" cube="rheinland-pfalz-haushalt" state="state">
     <div class='dimension-filters'>
       <p class="explanation">
       </p>

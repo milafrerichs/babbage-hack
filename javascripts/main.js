@@ -31,12 +31,15 @@ ngBabbageGlobals.categoryColors = [
     "#BCD631", "#95C93D", "#48B85C", "#00833D", "#00B48D",
     "#60C4B1", "#27C4F4", "#478DCB", "#3E67B1", "#4251A3", "#59449B",
     "#CF3D1E", "#F15623", "#F68B1F", "#FFC60B", "#DFCE21",
+    "#6E3F7C", "#6A246D", "#8A4873", "#EB0080", "#EF58A0", "#C05A89",
+    "#BCD631", "#95C93D", "#48B85C", "#00833D", "#00B48D",
+    "#60C4B1", "#27C4F4", "#478DCB", "#3E67B1", "#4251A3", "#59449B",
+    "#CF3D1E", "#F15623", "#F68B1F", "#FFC60B", "#DFCE21",
     "#6E3F7C", "#6A246D", "#8A4873", "#EB0080", "#EF58A0", "#C05A89"
     ];
 colorScale = d3.scale.ordinal().range(ngBabbageGlobals.categoryColors);
 
 ngBabbageGlobals.colorScale = function(i) {
-  if(parseInt(i) > ngBabbageGlobals.pageSize) { return "#ccc"; }
   return colorScale(i);
 };
 
@@ -83,10 +86,16 @@ addSpacingToKey = function(text) {
   return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
-  if (d._percentage < 0.02) {
+  if(d.data._name == "Hochbaumaßnahmen und Wohnungsbauförderung") {
+    return 'Bau (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
+  if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
+    return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
+  if (d.data._percentage < 0.02) {
     return '';
   }
-  return d.children ? null : truncate(d._name + ' (' + addSpacingToKey(leadingZeros(d,d._key)) + ')') + '<span class="amount">' + d._area_fmt + '</span>';
+  return d.children ? null : truncate(d.data._name + ' (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')', 100) + '<span class="amount">' + d.data._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {

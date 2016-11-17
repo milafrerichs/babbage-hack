@@ -1,0 +1,35 @@
+/* line 1, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+.babbage-frame {
+  width: 100%;
+  -webkit-print-color-adjust: exact; }
+
+/* line 6, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+.treemap-babbage {
+  min-height: 500px; }
+  /* line 12, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+  .treemap-babbage .node {
+    display: block;
+    border: 0;
+    color: #fff;
+    overflow: hidden;
+    position: absolute;
+    outline: 1px solid #fff;
+    font-size: 0.8em;
+    text-indent: 2px;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 5;
+    font-weight: 300;
+    text-shadow: -2px -2px 13px rgba(150, 150, 150, 0.9); }
+  /* line 27, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+  .treemap-babbage .amount {
+    display: block;
+    padding-bottom: 0.2em;
+    font-size: 1.5em; }
+  /* line 32, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+  .treemap-babbage .node:hover {
+    text-decoration: none; }
+
+/* line 36, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/print.scss */
+.dimension-filters {
+  display: none; }
