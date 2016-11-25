@@ -103,7 +103,7 @@ var percentFormat = function(d) {
 };
 demo.controller('DemoCtrl', function ($scope) {
   $scope.einahmeAusgabe = 'Einnahmen';
-	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe', 'jahr.jahr:2016'];
+	$scope.defaultCut = ['einnahmeausgabe.einnahmeausgabe:Ausgabe', 'jahr.jahr:2018'];
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
@@ -123,7 +123,7 @@ demo.controller('DemoCtrl', function ($scope) {
     }
   };
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
-  $scope.jahr = [{label: '2016', id: 'jahr'}];
+  $scope.jahr = [{label: '2018', id: 'jahr.jahr:2018'},{label: '2017', id: 'jahr.jahr:2017'},{label: '2016', id: 'jahr.jahr:2016'}];
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelpläne'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppen' }];
 
   $scope.showTooltip = true;
