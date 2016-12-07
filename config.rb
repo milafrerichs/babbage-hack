@@ -1,5 +1,21 @@
+set :site_url, ""
+set :relative_links, true
+
+set :css_dir, 'stylesheets'
+
+set :js_dir, 'javascripts'
+
+set :images_dir, 'images'
 sprockets.append_path File.join root, 'bower_components'
 sprockets.import_asset 'babbage.ui/dist/deps.css'
+sprockets.import_asset 'font-awesome/css/font-awesome.css'
+sprockets.import_asset('font-awesome/fonts/FontAwesome.otf') {|x| 'stylesheets/font-awesome/fonts/FontAwesome.otf'}
+sprockets.import_asset('font-awesome/fonts/fontawesome-webfont.eot') {|x| 'stylesheets/font-awesome/fonts/fontawesome-webfont.eot'}
+sprockets.import_asset('font-awesome/fonts/fontawesome-webfont.svg') {|x| 'stylesheets/font-awesome/fonts/fontawesome-webfont.svg'}
+sprockets.import_asset('font-awesome/fonts/fontawesome-webfont.ttf') {|x| 'stylesheets/font-awesome/fonts/fontawesome-webfont.otf'}
+sprockets.import_asset('font-awesome/fonts/fontawesome-webfont.woff') {|x| 'stylesheets/font-awesome/fonts/fontawesome-webfont.woff'}
+sprockets.import_asset('font-awesome/fonts/fontawesome-webfont.woff2') {|x| 'stylesheets/font-awesome/fonts/fontawesome-webfont.woff2'}
+
 ###
 # Compass
 ###
@@ -49,11 +65,6 @@ end
 #   end
 # end
 
-set :css_dir, 'stylesheets'
-
-set :js_dir, 'javascripts'
-
-set :images_dir, 'images'
 
 # Build-specific configuration
 configure :build do
@@ -67,7 +78,7 @@ configure :build do
   # activate :asset_hash
 
   # Use relative URLs
-  # activate :relative_assets
+  activate :relative_assets
 
   # Or use a different image path
   # set :http_prefix, "/Content/images/"

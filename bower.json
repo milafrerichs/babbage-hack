@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "babbage.ui": "",
-    "xhr-xdr-adapter":"*"
+    "xhr-xdr-adapter": "*",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }
