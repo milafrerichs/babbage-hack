@@ -67820,6 +67820,7 @@ demo.directive('dimensionFilter', ['$rootScope', function($rootScope) {
         var state = babbageCtrl.getState();
         state.tile = [attr.id];
         state.cut = asArray(scope.defaultCut);
+        state.tableOrder = [];
         scope.selected = attr.label;
         babbageCtrl.setState(state);
       };
@@ -67947,6 +67948,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
         var state = babbageCtrl.getState();
         state.cut = cutsWithOutLevels(removeLevels(name));
         state.tile = [name];
+        state.tableOrder = [];
         babbageCtrl.setState(state);
       };
       function labelForKey(data, keyRef, labelRef, value) {
