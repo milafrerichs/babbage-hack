@@ -7246,14 +7246,15 @@ table.treemap-table {
 .treemap-babbage a.node {
   font-size: 1.2em;
   padding: 0;
-  word-break: break-all;
   /* Non standard for webkit */
   word-break: break-word;
+  word-break: keep-all;
+  text-overflow: ellipsis;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto; }
-  /* line 15, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/_treemap.sass */
+  /* line 17, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/_treemap.sass */
   .treemap-babbage a.node .amount {
     font-size: 0.8em; }
 

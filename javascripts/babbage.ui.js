@@ -1653,7 +1653,8 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       var wrapper = element.querySelectorAll('.treemap-babbage')[0],
           size = babbageCtrl.size(wrapper, function(w) {
             return Math.ceil(w * 0.546); });
-      treemap.size([size.width, size.height]);
+      if (treemap)
+        treemap.size([size.width, size.height]);
 
       div = d3.select(wrapper).select("div")
         .style("position", "relative")
