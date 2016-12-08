@@ -7245,8 +7245,16 @@ table.treemap-table {
 /* line 2, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/_treemap.sass */
 .treemap-babbage a.node {
   font-size: 1.2em;
-  padding: 0; }
-  /* line 5, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/_treemap.sass */
+  padding: 0;
+  /* Non standard for webkit */
+  word-break: break-word;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto; }
+  /* line 16, /Users/milafrerichs/Development/work/okf/rheinlandpfalz/source/stylesheets/_treemap.sass */
   .treemap-babbage a.node .amount {
     font-size: 0.8em; }
 
