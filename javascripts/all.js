@@ -67661,9 +67661,9 @@ addSpacingToKey = function(text) {
       kapitelLength = 4;
   if(text.length <= position) { return text; }
   if(text.length === kapitelLength) {
-    return [text.slice(0, 2), "&nbsp;", text.slice(2)].join('');
+    return [text.slice(0, 2), " ", text.slice(2)].join('');
   }
-  return [text.slice(0, position), "&nbsp;", text.slice(position)].join('');
+  return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Hochbaumaßnahmen und Wohnungsbauförderung") {
