@@ -81,9 +81,9 @@ addSpacingToKey = function(text) {
       kapitelLength = 4;
   if(text.length <= position) { return text; }
   if(text.length === kapitelLength) {
-    return [text.slice(0, 2), "&nbsp;", text.slice(2)].join('');
+    return [text.slice(0, 2), " ", text.slice(2)].join('');
   }
-  return [text.slice(0, position), "&nbsp;", text.slice(position)].join('');
+  return [text.slice(0, position), " ", text.slice(position)].join('');
 };
 ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Hochbaumaßnahmen und Wohnungsbauförderung") {
@@ -92,11 +92,10 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
     return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
   }
-	console.log(d,d.data._percentage);
   if (d.data._percentage < 0.03) {
     return '';
   }
-  return d.children ? null : truncate(d.data._name, 120) + ' (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  return d.children ? null : truncate(d.data._name, 90) + ' (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
 };
 
 var percentFormat = function(d) {
