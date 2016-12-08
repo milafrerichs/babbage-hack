@@ -92,7 +92,6 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
     return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
   }
-	console.log(d,d.data._percentage);
   if (d.data._percentage < 0.03) {
     return '';
   }
