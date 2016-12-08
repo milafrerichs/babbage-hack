@@ -2,14 +2,14 @@
 title: Haushalt Rheinland-Pfalz
 ---
 <div class="rp" ng-controller="DemoCtrl">
-  <babbage endpoint="https://db.offenerhaushalt.de/api/babbage/" cube="rheinland-pfalz-haushalt" state="state">
+  <babbage endpoint="https://db.offenerhaushalt.de/api/babbage/" cube="haushalt-rp-2016-2018" state="state">
     <div class='dimension-filters'>
       <p class="explanation">
       </p>
       <div class='filter'>
         <h6>Haushaltsjahr</h6>
         <div class='filter-element'>
-          <babbage-cut-filter type='dropdown' filter="jahr" selected="2016" default-cut="defaultCut"></babbage-cut-filter>
+          <babbage-cut-filter type='dropdown' filter="jahr" selected="2018" default-cut="defaultCut"></babbage-cut-filter>
         </div>
       </div>
       <div class='filter'>
