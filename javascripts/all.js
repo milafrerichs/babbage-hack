@@ -68117,7 +68117,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
         scope.order = state.tableOrder;
-        if(scope.order === "") {
+        if(scope.order === "" || scope.order.length === 0) {
           currentOrder = 'value';
         }
         query(model, state);
