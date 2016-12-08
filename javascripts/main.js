@@ -107,6 +107,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
+    tableOrder: '',
     hierarchies: {
       'einzelplan': {
         label: 'Einzelplan',
@@ -122,6 +123,7 @@ demo.controller('DemoCtrl', function ($scope) {
       }
     }
   };
+
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
   $scope.jahr = [{label: '2018', id: 'jahr.jahr:2018'},{label: '2017', id: 'jahr.jahr:2017'},{label: '2016', id: 'jahr.jahr:2016'}];
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelpläne'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppen' }];
@@ -140,5 +142,6 @@ demo.controller('DemoCtrl', function ($scope) {
     $scope.reset = true;
     $scope.state.tile = [tile];
     $scope.state.cut = [ $scope.defaultCut ];
+    $scope.state.tableOrder = [];
   };
 });

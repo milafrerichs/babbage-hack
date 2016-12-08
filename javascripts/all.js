@@ -67384,8 +67384,9 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       if(newLevel && !d.hasOwnProperty("other") && !d.hasOwnProperty("nullCell")) {
         currentState.tile = [ newLevel];
         currentState.cut = currentState.cut.concat([cut]);
-        babbageCtrl.setState(currentState);
       }
+      currentState.tableOrder = '';
+      babbageCtrl.setState(currentState);
     }
 
     function positionNode() {
@@ -67687,6 +67688,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
+    tableOrder: '',
     hierarchies: {
       'einzelplan': {
         label: 'Einzelplan',
@@ -67702,6 +67704,7 @@ demo.controller('DemoCtrl', function ($scope) {
       }
     }
   };
+
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
   $scope.jahr = [{label: '2018', id: 'jahr.jahr:2018'},{label: '2017', id: 'jahr.jahr:2017'},{label: '2016', id: 'jahr.jahr:2016'}];
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelpläne'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppen' }];
@@ -67720,6 +67723,7 @@ demo.controller('DemoCtrl', function ($scope) {
     $scope.reset = true;
     $scope.state.tile = [tile];
     $scope.state.cut = [ $scope.defaultCut ];
+    $scope.state.tableOrder = [];
   };
 });
 demo.directive('babbageCutFilter', ['$rootScope', function($rootScope) {
@@ -68043,6 +68047,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.queryLoaded = false;
 
       scope.setTile = function(row) {
+        scope.order = [];
         var currentState = babbageCtrl.getState(),
           newLevel = babbageCtrl.getNextHierarchyLevel(),
             currentKey = babbageCtrl.getDimensionKey(currentState.tile[0]);
@@ -68109,6 +68114,10 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 				scope.summary = { value_fmt: ngBabbageGlobals.numberFormat(Math.round(data.summary[areaRef]))};
       };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
+        scope.order = state.tableOrder;
+        if(scope.order === "") {
+          currentOrder = 'value';
+        }
         query(model, state);
         scope.lastLevel = babbageCtrl.getNextHierarchyLevel() ? false : true;
       });
@@ -68116,6 +68125,9 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.direction = scope.direction.reverse();
       currentOrder = order;
       scope.order = [{ref: orderKeys[order], direction:  scope.direction[0]}];
+      var currentState = babbageCtrl.getState();
+      currentState.tableOrder = scope.order;
+      babbageCtrl.setState(currentState);
       babbageCtrl.update();
     };
     scope.$on('$destroy', unsubscribe);
