@@ -92,6 +92,12 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
     return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
   }
+  if(d.data._name == "Ministerium für Umwelt, Energie, Ernährung und Forsten") {
+    return 'MUEEF (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
+  if(d.data._name == "Ministerium für Familie, Frauen, Jugend, Integration und Verbraucherschutz") {
+    return 'MFFJIV (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
   if (d.data._percentage < 0.03) {
     return '';
   }
