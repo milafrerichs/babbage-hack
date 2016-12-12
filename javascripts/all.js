@@ -68063,6 +68063,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         if(newLevel) {
           currentState.tile = [ newLevel];
           currentState.cut = currentState.cut.concat([cut]);
+          currentState.tableOrder = '';
           babbageCtrl.setState(currentState);
         }
       };
