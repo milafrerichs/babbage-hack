@@ -26,6 +26,7 @@ demo.directive('dimensionFilter', ['$rootScope', function($rootScope) {
         var state = babbageCtrl.getState();
         state.tile = [attr.id];
         state.cut = asArray(scope.defaultCut);
+        state.tableOrder = [];
         scope.selected = attr.label;
         babbageCtrl.setState(state);
       };

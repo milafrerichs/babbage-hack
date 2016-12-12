@@ -1597,8 +1597,9 @@ ngBabbage.directive('babbageTreemap', ['$rootScope', '$http', '$document', '$com
       if(newLevel && !d.hasOwnProperty("other") && !d.hasOwnProperty("nullCell")) {
         currentState.tile = [ newLevel];
         currentState.cut = currentState.cut.concat([cut]);
-        babbageCtrl.setState(currentState);
       }
+      currentState.tableOrder = '';
+      babbageCtrl.setState(currentState);
     }
 
     function positionNode() {

@@ -24,6 +24,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.queryLoaded = false;
 
       scope.setTile = function(row) {
+        scope.order = [];
         var currentState = babbageCtrl.getState(),
           newLevel = babbageCtrl.getNextHierarchyLevel(),
             currentKey = babbageCtrl.getDimensionKey(currentState.tile[0]);
@@ -31,6 +32,7 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
         if(newLevel) {
           currentState.tile = [ newLevel];
           currentState.cut = currentState.cut.concat([cut]);
+          currentState.tableOrder = '';
           babbageCtrl.setState(currentState);
         }
       };
@@ -90,6 +92,10 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
 				scope.summary = { value_fmt: ngBabbageGlobals.numberFormat(Math.round(data.summary[areaRef]))};
       };
       var unsubscribe = babbageCtrl.subscribe(function(event, model, state) {
+        scope.order = state.tableOrder;
+        if(scope.order === "" || scope.order.length === 0) {
+          currentOrder = 'value';
+        }
         query(model, state);
         scope.lastLevel = babbageCtrl.getNextHierarchyLevel() ? false : true;
       });
@@ -97,6 +103,9 @@ demo.directive('treemapTable', ['$rootScope', '$http', function($rootScope, $htt
       scope.direction = scope.direction.reverse();
       currentOrder = order;
       scope.order = [{ref: orderKeys[order], direction:  scope.direction[0]}];
+      var currentState = babbageCtrl.getState();
+      currentState.tableOrder = scope.order;
+      babbageCtrl.setState(currentState);
       babbageCtrl.update();
     };
     scope.$on('$destroy', unsubscribe);

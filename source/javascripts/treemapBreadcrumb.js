@@ -60,6 +60,7 @@ demo.directive('treemapBreadcrumb', ['$rootScope', '$q', function($rootScope, $q
         var state = babbageCtrl.getState();
         state.cut = cutsWithOutLevels(removeLevels(name));
         state.tile = [name];
+        state.tableOrder = [];
         babbageCtrl.setState(state);
       };
       function labelForKey(data, keyRef, labelRef, value) {

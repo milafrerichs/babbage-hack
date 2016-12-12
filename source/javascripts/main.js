@@ -92,6 +92,12 @@ ngBabbageGlobals.treemapHtmlFunc = function(d) {
   if(d.data._name == "Ministerium für Wirtschaft, Klimaschutz, Energie und Landesplanung") {
     return 'MWKEL (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
   }
+  if(d.data._name == "Ministerium für Umwelt, Energie, Ernährung und Forsten") {
+    return 'MUEEF (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
+  if(d.data._name == "Ministerium für Familie, Frauen, Jugend, Integration und Verbraucherschutz") {
+    return 'MFFJIV (' + addSpacingToKey(leadingZeros(d.data,d.data._key)) + ')' + '<span class="amount">' + d.data._area_fmt + '</span>';
+  }
   if (d.data._percentage < 0.03) {
     return '';
   }
@@ -107,6 +113,7 @@ demo.controller('DemoCtrl', function ($scope) {
   $scope.state = {
     tile: ['einzelplan'],
     cut: $scope.defaultCut,
+    tableOrder: '',
     hierarchies: {
       'einzelplan': {
         label: 'Einzelplan',
@@ -122,6 +129,7 @@ demo.controller('DemoCtrl', function ($scope) {
       }
     }
   };
+
   $scope.einahmenausgaben = [{label: 'Einnahmen', id: 'einnahmeausgabe.einnahmeausgabe:Einnahme'},{label: 'Ausgaben', id: 'einnahmeausgabe.einnahmeausgabe:Ausgabe'}];
   $scope.jahr = [{label: '2018', id: 'jahr.jahr:2018'},{label: '2017', id: 'jahr.jahr:2017'},{label: '2016', id: 'jahr.jahr:2016'}];
   $scope.anzeige = [{id: 'einzelplan', label: 'Einzelpläne'}, {id: 'hauptfunktion', label: 'Politikfelder'},  {id: 'hauptgruppe', label: 'Gruppen' }];
@@ -140,5 +148,6 @@ demo.controller('DemoCtrl', function ($scope) {
     $scope.reset = true;
     $scope.state.tile = [tile];
     $scope.state.cut = [ $scope.defaultCut ];
+    $scope.state.tableOrder = [];
   };
 });
